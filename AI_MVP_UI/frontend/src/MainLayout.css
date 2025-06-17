@@ -9,6 +9,7 @@ html, body, #root {
 }
 
 .main-layout {
+  
   display: flex;
   height: 100vh;
   background: #e3eaf0;
@@ -20,6 +21,7 @@ html, body, #root {
   left: 260px; /* Width of the sidebar */
   width: calc(100vw - 260px);
   height: calc(100vh - 64px);
+  padding-left: 3%;
   display: flex;
   flex-direction: column;
   background: #e3eaf0;
@@ -93,7 +95,7 @@ html, body, #root {
 .page-title-container {
   width: 100%;
   margin-left: 0;
-  padding-left: 0px;
+  padding-left: 32px;
   margin-top: 32px;
   margin-bottom: 16px;
   display: flex;

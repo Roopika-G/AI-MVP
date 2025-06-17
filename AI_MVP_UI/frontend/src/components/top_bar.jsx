@@ -73,7 +73,7 @@ function Topbar() {
                 zIndex: 10001,
                 whiteSpace: 'nowrap'
               }}>
-                Click to logout
+                Open Dropdown
               </div>
             )}
           </div>

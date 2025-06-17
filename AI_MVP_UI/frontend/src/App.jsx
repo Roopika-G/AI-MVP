@@ -26,11 +26,6 @@ function App() {
           path="/pingfederate/*"
           element={isAuthenticated ? <MainLayout /> : <Navigate to="/login" />}
         />
-
-        <Route
-          path="/voicetotext"
-          element={isAuthenticated ? <VoiceToText /> : <Navigate to="/login" />}
-        />
         
         <Route
           path="/*"
