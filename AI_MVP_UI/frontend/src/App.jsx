@@ -22,7 +22,7 @@ function App() {
           element={isAuthenticated ? <ApplicationsPage /> : <Navigate to="/login" />}
         />
         <Route
-          path="/pingfederate"
+          path="/pingfederate/*"
           element={isAuthenticated ? <MainLayout /> : <Navigate to="/login" />}
         />
         <Route
