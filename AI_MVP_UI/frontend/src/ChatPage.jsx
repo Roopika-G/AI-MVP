@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';  // ⬅️ Add this
+import { useNavigate } from 'react-router-dom'; 
+import VoiceToText from './pages/voicetotext';
 import './ChatPage.css';
 
 function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef(null);
-  const navigate = useNavigate();  // ⬅️ Add this
+  const navigate = useNavigate();  
 
   const handleSendMessage = () => {
     if (!inputValue.trim()) return;
@@ -29,8 +30,8 @@ function ChatPage() {
       <div className="chat-left">
         <div className="avatar-full-rectangle" />
         <div className="chat-icon-buttons">
-          <button className="round-button">🎤</button>
-          <button className="round-button">⏹</button>
+          <VoiceToText onTranscript={text => setInputValue(text)}/>
+        
         </div>
       </div>
 
@@ -39,7 +40,7 @@ function ChatPage() {
         <div className="chat-back-header">
           <button
             className="chat-back-button"
-            onClick={() => navigate('/applications')}
+            onClick={() => navigate('/pingfederate')}
             title="Back to PingFederate"
           >
             &#8592;

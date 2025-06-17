@@ -9,6 +9,7 @@ html, body, #root {
 }
 
 .main-layout {
+  
   display: flex;
   height: 100vh;
   background: #e3eaf0;
@@ -20,6 +21,7 @@ html, body, #root {
   left: 260px; /* Width of the sidebar */
   width: calc(100vw - 260px);
   height: calc(100vh - 64px);
+  padding-left: 3%;
   display: flex;
   flex-direction: column;
   background: #e3eaf0;
@@ -93,7 +95,7 @@ html, body, #root {
 .page-title-container {
   width: 100%;
   margin-left: 0;
-  padding-left: 48px;
+  padding-left: 32px;
   margin-top: 32px;
   margin-bottom: 16px;
   display: flex;
@@ -107,7 +109,7 @@ html, body, #root {
 }
 .applications-section {
   flex: 1;
-  padding: 0 0 0 48px;
+  padding: 0 0 0 14px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -129,21 +131,24 @@ html, body, #root {
   margin-bottom: 32px;
 }
 .cards-row {
-  display: flex;
-  gap: 40px;
-  margin-top: 0;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2%;
+  width: 100%;
 }
 .app-card {
   background: #fff;
+  height: auto;
+  width: 250px;
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   padding: 32px 24px;
-  width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: box-shadow 0.2s;
+  margin-bottom: 40px;
+  /* color: black; Text Colour */
 }
 .app-card:hover {
   box-shadow: 0 4px 16px rgba(0,0,0,0.13);

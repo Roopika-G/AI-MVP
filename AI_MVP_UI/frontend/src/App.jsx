@@ -7,6 +7,7 @@ import {
 import Login from './Login';
 import MainLayout from './MainLayout';
 import ApplicationsPage from './ApplicationsPage';
+import VoiceToText from './pages/voicetotext.jsx';
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           path="/pingfederate/*"
           element={isAuthenticated ? <MainLayout /> : <Navigate to="/login" />}
         />
+        
         <Route
           path="/*"
           element={<Navigate to={isAuthenticated ? "/applications" : "/login"} />}

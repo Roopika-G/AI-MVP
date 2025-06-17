@@ -4,6 +4,8 @@ import './MainLayout.css';
 import Sidebar from './components/sidebar.jsx';
 import Topbar from './components/top_bar.jsx';
 
+import { FaMicrophoneAlt } from "react-icons/fa";
+
 function ApplicationsPage() {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -16,32 +18,8 @@ function ApplicationsPage() {
 
   return (
     <div className="main-layout full-screen">
-      {/* <div className="top-header">
-        <div className="header-logo">
-          <img src="/Vega Logo.png" alt="Vega Logo" />
-        </div>
-        <div className="header-app-name">AI-Copilot</div>
-        <div className="header-user-info">
-          <div
-            className="user-avatar user-avatar-circle"
-            onClick={() => setShowDropdown(!showDropdown)}
-            style={{ cursor: 'pointer' }}
-            title="Click to logout"
-          >
-            {localStorage.getItem('username')?.charAt(0).toUpperCase() || 'U'}
-          </div>
-          <div className="header-user-text">
-            <div className="greeting">Hi there,</div>
-            <div className="username">{localStorage.getItem('username') || 'User'}</div>
-          </div>
-          {showDropdown && (
-            <div className="logout-dropdown" onClick={handleLogout}>
-              Logout
-            </div>
-          )}
-        </div>
-      </div> */}
       <Topbar />
+
       <Sidebar />
 
       <main className="main-content">
@@ -50,6 +28,7 @@ function ApplicationsPage() {
         </div>
         <section className="applications-section">
           <div className="cards-row">
+            
             <div className="app-card" onClick={() => navigate('/pingfederate')} style={{ cursor: 'pointer' }}>
               <div className="card-title">PingFederate</div>
               <img src="/PF-Logo.png" alt="PingFederate" className="card-img" />
@@ -57,7 +36,7 @@ function ApplicationsPage() {
             <div className="app-card">
               <div className="card-title">PingDirectory</div>
               <img src="/PD-Logo.jpeg" alt="PingDirectory" className="card-img" />
-            </div>
+            </div>     
           </div>
         </section>
       </main>
