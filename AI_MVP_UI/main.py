@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request, File, Response, UploadFile
+from fastapi import FastAPI, HTTPException, Request, File, Response, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 import tempfile
 import os
@@ -39,25 +39,29 @@ def login(data: LoginRequest):
     else:
         raise HTTPException(status_code=401, detail="Invalid credentials") 
     
-@app.post("/process-audio")
-async def process_audio(audio_file: UploadFile = File(...)):
-    # Save uploaded file to a temp file
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp_in:
-        tmp_in.write(await audio_file.read())
-        tmp_in_path = tmp_in.name
 
-    tmp_out_path = tmp_in_path.replace(".wav", "_processed.wav")
+RECORDINGS_DIR = os.path.join(os.path.dirname(__file__), "recording_tests")
+os.makedirs(RECORDINGS_DIR, exist_ok=True)
 
-    # Call your separate Python script to process the audio
-    # For demo, just copy the file (replace this with your processing logic)
-    subprocess.run(["python", "audio_processor.py", tmp_in_path, tmp_out_path])
+@app.post("/save-recording")
+async def save_recording(
+    audio_file: UploadFile = File(...),
+    transcript: str = Form(...)
+):
+    # Find next available record number
+    existing = [f for f in os.listdir(RECORDINGS_DIR) if f.startswith("record") and f.endswith(".wav")]
+    numbers = [int(f[6:-4]) for f in existing if f[6:-4].isdigit()]
+    next_num = max(numbers, default=0) + 1
 
-    # Read processed audio and return
-    with open(tmp_out_path, "rb") as f:
-        audio_bytes = f.read()
+    audio_path = os.path.join(RECORDINGS_DIR, f"record{next_num}.wav")
+    transcript_path = os.path.join(RECORDINGS_DIR, f"record{next_num}_transcript.txt")
 
-    # Clean up temp files
-    os.remove(tmp_in_path)
-    os.remove(tmp_out_path)
+    # Save audio
+    with open(audio_path, "wb") as f:
+        f.write(await audio_file.read())
 
-    return Response(content=audio_bytes, media_type="audio/wav")
+    # Save transcript
+    with open(transcript_path, "w", encoding="utf-8") as f:
+        f.write(transcript)
+
+    return {"success": True, "recording_number": next_num}

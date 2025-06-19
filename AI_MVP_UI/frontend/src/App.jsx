@@ -7,8 +7,8 @@ import {
 import Login from './Login';
 import MainLayout from './MainLayout';
 import ApplicationsPage from './ApplicationsPage';
-import VoiceToText from './pages/voicetotext.jsx';
 import './App.css';
+import VoiceToTest from './pages/voicetotest';
 
 function App() {
   // For now, use localStorage for auth state (simple demo)
@@ -25,6 +25,10 @@ function App() {
         <Route
           path="/pingfederate/*"
           element={isAuthenticated ? <MainLayout /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/voicetotest"
+          element={isAuthenticated ? <VoiceToTest /> : <Navigate to="/login" />}
         />
         
         <Route
