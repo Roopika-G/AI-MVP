@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import VoiceToText from './pages/voicetotext';
+import VoiceToText from './components/voicetotext';
 import './ChatPage.css';
 
 function ChatPage() {

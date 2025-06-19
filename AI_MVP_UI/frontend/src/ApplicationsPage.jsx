@@ -36,6 +36,10 @@ function ApplicationsPage() {
             <div className="app-card">
               <div className="card-title">PingDirectory</div>
               <img src="/PD-Logo.jpeg" alt="PingDirectory" className="card-img" />
+            </div>
+            <div className="app-card" onClick={() => navigate('/voicetotest')} style={{ cursor: 'pointer' }}>
+              <div className="card-title">VoicetoText Test</div>
+              <img src="/Mic-Logo.jpg" alt="VoicetoText" className="card-img" />
             </div>     
           </div>
         </section>
