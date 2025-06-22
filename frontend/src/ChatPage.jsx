@@ -27,8 +27,10 @@ function ChatPage() {
 
   return (
     <div className="chat-container">
-      <div className="chat-left">
-        <div className="avatar-full-rectangle" />
+      <div className="chat-left" >
+        <div className="avatar-full-rectangle" style={{ background: 'linear-gradient(to right, #2196f3, #4caf50)' }}> 
+          {/* Avatar goes here */}
+        </div>
         <div className="chat-icon-buttons">
           <VoiceToText onTranscript={text => setInputValue(text)}/>
         
