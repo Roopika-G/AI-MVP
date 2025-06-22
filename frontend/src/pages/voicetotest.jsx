@@ -1,9 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import { BiReset } from "react-icons/bi";
 import { FaMicrophone, FaStop, FaSave } from "react-icons/fa";
 import '../ChatPage.css';
 
 const VoiceToTest = ({ onTranscript }) => {
+
   const [recording, setRecording] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [error, setError] = useState('');
@@ -128,10 +130,16 @@ const VoiceToTest = ({ onTranscript }) => {
     alert("Could not reach backend.");
   }
   };
-
+  const navigate = useNavigate();  
   return (
-    <div style={{ color: 'black' }}>
-      <div className="chat-icon-buttons">
+    <div style={{ color: 'black', flexDirection: 'column' }} >
+      <div>
+        <button  onClick={() => navigate('/applications')}
+        >
+          Back
+        </button>
+      </div>
+      <div className="chat-icon-buttons" style={{ marginTop: "50px"}}>
         <button
           className="round-button"
           onClick={startListening}
