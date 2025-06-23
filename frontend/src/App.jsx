@@ -9,6 +9,8 @@ import MainLayout from './MainLayout';
 import ApplicationsPage from './ApplicationsPage';
 import './App.css';
 import VoiceToTest from './pages/voicetotest';
+import TTS from './pages/TTS';
+import Heygen from './pages/heygen';
 
 function App() {
   // For now, use localStorage for auth state (simple demo)
@@ -30,7 +32,14 @@ function App() {
           path="/voicetotest"
           element={isAuthenticated ? <VoiceToTest /> : <Navigate to="/login" />}
         />
-        
+        <Route
+          path="/tts"
+          element={isAuthenticated ? <TTS /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/videoavatar"
+          element={isAuthenticated ? <Heygen /> : <Navigate to="/login" />}
+        />
         <Route
           path="/*"
           element={<Navigate to={isAuthenticated ? "/applications" : "/login"} />}
