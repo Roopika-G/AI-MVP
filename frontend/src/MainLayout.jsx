@@ -13,7 +13,7 @@ const sidebarItems = [
   { label: 'Privacy' },
 ];
 
-function MainLayout() {
+function MainLayout({ children }) {
   const [active, setActive] = useState('Applications');
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,7 +28,9 @@ function MainLayout() {
       <Sidebar />
 
       <main className={`main-content ${isChatPage ? 'main-content-chat' : ''}`}>
-        {isChatPage ? (
+        {children ? (
+          children
+        ) : isChatPage ? (
           <ChatPage />
         ) : (
           <>

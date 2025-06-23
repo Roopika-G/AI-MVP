@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "agenbotc")))
 from fastapi import FastAPI, HTTPException, Request, File, Response, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 import tempfile
@@ -5,10 +8,18 @@ import os
 import subprocess
 from pydantic import BaseModel
 import yaml
+from pydantic import BaseModel
+from typing import List, Optional
+from fastapi import Form
+from fastapi import UploadFile, File
+
+from ingestion import process_pdf, process_docx, process_ppt, process_website
+from chatbot import get_chatbot_response
 
 # Load config
 def load_config():
-    with open("config.yaml", "r") as f:
+    config_path = os.path.join(os.path.dirname(__file__), "config.yaml")
+    with open(config_path, "r") as f:
         return yaml.safe_load(f)
 
 app = FastAPI()
@@ -26,7 +37,7 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
-@app.post("/login")
+'''@app.post("/login")
 def login(data: LoginRequest):
     config = load_config()
     ldap_conf = config["ldap"]
@@ -37,7 +48,18 @@ def login(data: LoginRequest):
     ):
         return {"success": True, "message": "Login successful"}
     else:
-        raise HTTPException(status_code=401, detail="Invalid credentials") 
+        raise HTTPException(status_code=401, detail="Invalid credentials")'''
+        
+@app.post("/login")
+def login(data: LoginRequest):
+       config = load_config()
+       users = config.get("users", [])
+       print("Loaded users:", users)
+       print("Login attempt:", data.username, data.password)
+       for user in users:
+           if data.username == user["username"] and data.password == user["password"]:
+               return {"success": True, "message": "Login successful", "role": user.get("role", "user")}
+       raise HTTPException(status_code=401, detail="Invalid credentials")
     
 
 RECORDINGS_DIR = os.path.join(os.path.dirname(__file__), "recording_tests")
@@ -70,3 +92,57 @@ async def save_recording(
 async def get_avatar_text():
     # You can replace this with any logic or dynamic text
     return {"text": "Hello! This is the AI avatar speaking from the backend."}
+
+@app.post("/upload/pdf")
+async def upload_pdf(file: UploadFile = File(...)):
+    file_location = f"uploads/{file.filename}"
+    os.makedirs("uploads", exist_ok=True)
+    with open(file_location, "wb") as f:
+        f.write(await file.read())
+    try:
+        doc_id = process_pdf(file_location)
+        return {"status": "success", "message": f"PDF processed successfully", "doc_id": doc_id}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+@app.post("/upload/docx")
+async def upload_docx(file: UploadFile = File(...)):
+    file_location = f"uploads/{file.filename}"
+    os.makedirs("uploads", exist_ok=True)
+    with open(file_location, "wb") as f:
+        f.write(await file.read())
+    try:
+        doc_id = process_docx(file_location)
+        return {"status": "success", "message": f"DOCX processed successfully", "doc_id": doc_id}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+@app.post("/upload/ppt")
+async def upload_ppt(file: UploadFile = File(...)):
+    file_location = f"uploads/{file.filename}"
+    os.makedirs("uploads", exist_ok=True)
+    with open(file_location, "wb") as f:
+        f.write(await file.read())
+    try:
+        doc_id = process_ppt(file_location)
+        return {"status": "success", "message": f"PPT processed successfully", "doc_id": doc_id}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+@app.post("/process/website")
+async def process_web(url: str = Form(...)):
+    try:
+        doc_id = process_website(url)
+        return {"status": "success", "message": f"Website processed successfully", "doc_id": doc_id}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
+
+class ChatRequest(BaseModel):
+    question: str
+    history: List[str] = []
+
+@app.post("/chat")
+async def chat(request: ChatRequest):
+    response = get_chatbot_response(request.question, request.history)
+    return {"response": response}

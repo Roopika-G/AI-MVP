@@ -1,3 +1,4 @@
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,18 +12,27 @@ import './App.css';
 import VoiceToTest from './pages/voicetotest';
 import TTS from './pages/TTS';
 import Heygen from './pages/heygen';
+import SettingsPage from './SettingsPage';
 
 function App() {
   // For now, use localStorage for auth state (simple demo)
-  const isAuthenticated = !!localStorage.getItem('token');
+  const role = localStorage.getItem('role');
+  const isAuthenticated = !!localStorage.getItem('role');
+  // Add these logs:
+  console.log('App.jsx: role from localStorage:', role);
+  console.log('App.jsx: isAuthenticated:', isAuthenticated);
 
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route 
+          path="/login" element={<Login />} />
         <Route
           path="/applications"
-          element={isAuthenticated ? <ApplicationsPage /> : <Navigate to="/login" />}
+          element={
+            role === 'user'
+              ? <ApplicationsPage />
+              : <Navigate to={role === 'admin' ? '/settings' : '/login'} />}
         />
         <Route
           path="/pingfederate/*"
@@ -43,6 +53,14 @@ function App() {
         <Route
           path="/*"
           element={<Navigate to={isAuthenticated ? "/applications" : "/login"} />}
+        />
+        <Route
+        path="/settings"
+        element={
+          role === 'admin'
+            ? <MainLayout><SettingsPage /></MainLayout>
+            : <Navigate to={role === 'user' ? "/applications" : "/login"} />
+        }
         />
       </Routes>
     </Router>

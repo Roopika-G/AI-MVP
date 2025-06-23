@@ -38,6 +38,7 @@ env/
 *.log
 *.sqlite
 *.db
+vectorstore/chroma.sqlite3
 
 # Environment variables
 .env

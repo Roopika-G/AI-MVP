@@ -17,15 +17,24 @@ function Login() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
       });
-      if (res.ok) {
-        localStorage.setItem('token', 'dummy');
+      console.log('Login response:', res);
+      const data = await res.json();
+      console.log('Login data:', data);
+      if (data.success) {
         localStorage.setItem('username', username);
-        window.location.href = '/';
+        localStorage.setItem('role', data.role);
+        console.log('Set role in localStorage:', data.role);
+        if (data.role === 'admin') {
+          window.location.href = '/settings';
+        } else {
+          window.location.href = '/applications';
+        }
       } else {
         setError('Invalid credentials');
       }
-    } catch {
+    } catch (err) {
       setError('Server error');
+      console.log('Login error:', err);
     }
   };
 
