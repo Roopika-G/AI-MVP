@@ -13,8 +13,8 @@ from typing import List, Optional
 from fastapi import Form
 from fastapi import UploadFile, File
 
-from ingestion import process_pdf, process_docx, process_ppt, process_website
-from chatbot import get_chatbot_response
+from ingestion import process_pdf, process_docx, process_ppt, process_website #WILL NEED THESE FROM MURALI'S CODE Ingest.py
+from chatbot import get_chatbot_response # WILL NEED THESE FROM MURALI'S CODE Chatbot.py
 
 # Load config
 def load_config():
