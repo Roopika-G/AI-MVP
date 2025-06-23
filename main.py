@@ -65,3 +65,8 @@ async def save_recording(
         f.write(transcript)
 
     return {"success": True, "recording_number": next_num}
+
+@app.get("/get-avatar-text")
+async def get_avatar_text():
+    # You can replace this with any logic or dynamic text
+    return {"text": "Hello! This is the AI avatar speaking from the backend."}
