@@ -4,8 +4,8 @@ html, body, #root {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden;
   background: #e3eaf0;
+  overflow-x: hidden;
 }
 
 .main-layout {
@@ -13,6 +13,7 @@ html, body, #root {
   display: flex;
   height: 100vh;
   background: #e3eaf0;
+  overflow-x: hidden;
 }
 
 .main-content {
@@ -26,6 +27,8 @@ html, body, #root {
   flex-direction: column;
   background: #e3eaf0;
   box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .main-content-chat {
@@ -109,14 +112,15 @@ html, body, #root {
 }
 .applications-section {
   flex: 1;
-  padding: 0 0 0 14px;
+  padding: 0 0 32px 14px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
-  height: 100%;
+  min-height: fit-content;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 .applications-title {
   font-size: 2.5em;
@@ -132,26 +136,38 @@ html, body, #root {
 }
 .cards-row {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2%;
-  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  width: calc(100% - 32px);
+  padding: 0 16px 32px 0;
+  margin-bottom: 32px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 2000px) {
+  .cards-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 .app-card {
   background: #fff;
   height: auto;
-  width: 250px;
+  width: 280px;
+  max-width: 320px;
+  margin: 0 auto;
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   padding: 32px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: box-shadow 0.2s;
-  margin-bottom: 40px;
+  justify-content: center;
+  transition: box-shadow 0.2s, transform 0.2s;
   /* color: black; Text Colour */
 }
 .app-card:hover {
   box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+  transform: translateY(-2px);
 }
 .card-title {
   font-size: 1.2em;
@@ -169,7 +185,6 @@ html, body, #root {
   height: 100vh;
   min-height: 100vh;
   min-width: 100vw;
-  overflow: hidden;
   background: #e3eaf0;
   display: flex;
 }
