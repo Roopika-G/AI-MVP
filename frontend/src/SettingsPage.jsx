@@ -20,22 +20,22 @@ function SettingsPage() {
         <h3>Upload Knowledge</h3>
         <form>
           <div>
-            <label>Process Website</label>
+            {/* <label>Process Website</label> */}
             <input type="text" placeholder="https://example.com" />
             <button type="button">Process Website</button>
           </div>
           <div>
-            <label>Process PDF</label>
+            {/* <label>Process PDF</label> */}
             <input type="file" accept=".pdf" />
             <button type="button">Upload PDF</button>
           </div>
           <div>
-            <label>Process DOCX</label>
+            {/* <label>Process DOCX</label> */}
             <input type="file" accept=".docx" />
             <button type="button">Upload DOCX</button>
           </div>
           <div>
-            <label>Process PPT</label>
+            {/* <label>Process PPT</label> */}
             <input type="file" accept=".ppt,.pptx" />
             <button type="button">Upload PPT</button>
           </div>

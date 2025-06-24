@@ -25,14 +25,14 @@ function ApplicationsPage() {
       <main className="main-content">
         <div className="page-title-container">
           <h1 className="page-title">Applications</h1>
-        </div>
-        <section className="applications-section">
+        </div>        <section className="applications-section">
           <div className="cards-row">
             
             <div className="app-card" onClick={() => navigate('/pingfederate')} style={{ cursor: 'pointer' }}>
               <div className="card-title">PingFederate</div>
               <img src="/PF-Logo.png" alt="PingFederate" className="card-img" />
             </div>
+            
             <div className="app-card">
               <div className="card-title">PingDirectory</div>
               <img src="/PD-Logo.jpeg" alt="PingDirectory" className="card-img" />
@@ -42,15 +42,16 @@ function ApplicationsPage() {
               <div className="card-title">VoicetoText Test</div>
               <img src="/Mic-Logo.jpg" alt="VoicetoText" className="card-img" />
             </div>
-            <br/> 
-            <div className="app-card" onClick={() => navigate('/videoavatar')} style={{ cursor: 'pointer' }}>
-              <div className="card-title">Video Avatar Test</div>
-              <img src="/TTS-Logo.png" alt="Heygen" className="card-img" />
+            
+            <div className="app-card" onClick={() => navigate('/tts')} style={{ cursor: 'pointer' }}>
+              <div className="card-title">Text to Speech Test</div>
+              <img src="/TTS-Logo.png" alt="Text to Speech" className="card-img" />
             </div> 
+            
             <div className="app-card" onClick={() => navigate('/videoavatar')} style={{ cursor: 'pointer' }}>
               <div className="card-title">Video Avatar Test</div>
               <img src="/Heygen-Logo.png" alt="Heygen" className="card-img" />
-            </div>  
+            </div>
 
           </div>
         </section>
