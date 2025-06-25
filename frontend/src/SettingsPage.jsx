@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import ReactMarkdown from 'react-markdown';
 import './SettingsPage.css';
 
 function SettingsPage() {
@@ -17,7 +18,13 @@ function SettingsPage() {
     { type: 'bot', text: "Hello! I'm your knowledge base assistant. Upload PDFs or provide website URLs to help me answer your questions better." }
   ]);
   const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  // Scroll to bottom when new messages are added
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
   // Function to manually dismiss notification
   const dismissNotification = () => {
     if (notificationTimeoutRef.current) {
@@ -187,7 +194,74 @@ function SettingsPage() {
     } catch (error) {
       showUploadNotification(`Error uploading PPT: ${error.message}`, 'error');
     }
-  };return (
+  };
+
+  // Clear chat history
+  const clearChat = () => {
+    setMessages([
+      { type: 'bot', text: "Hello! I'm your knowledge base assistant. Upload PDFs or provide website URLs to help me answer your questions better." }
+    ]);
+  };
+
+  // Handle chat message sending
+  const handleChatSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!inputValue.trim() || isLoading) return;
+
+    const userMessage = inputValue.trim();
+    setInputValue('');
+    setIsLoading(true);
+
+    // Add user message to chat
+    const newMessages = [...messages, { type: 'user', text: userMessage }];
+    setMessages(newMessages);
+
+    try {
+      // Prepare chat history for API (exclude the welcome message)
+      const chatHistory = newMessages
+        .slice(1) // Remove welcome message
+        .map(msg => ({
+          question: msg.type === 'user' ? msg.text : '',
+          answer: msg.type === 'bot' ? msg.text : ''
+        }))
+        .filter(exchange => exchange.question || exchange.answer);
+
+      const response = await fetch('http://localhost:8000/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          question: userMessage,
+          history: chatHistory
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      // Add bot response to chat
+      setMessages(prev => [...prev, { 
+        type: 'bot', 
+        text: result.response.answer || 'Sorry, I couldn\'t generate a response.' 
+      }]);
+
+    } catch (error) {
+      console.error('Chat error:', error);
+      setMessages(prev => [...prev, { 
+        type: 'bot', 
+        text: 'Sorry, I encountered an error while processing your question. Please try again.' 
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+return (
     <div className="settings-split-container">      {/* Left: Uploads */}
       <div className="settings-upload-panel">
         <h3>Upload Knowledge</h3>        {uploadStatus && (
@@ -288,25 +362,52 @@ function SettingsPage() {
 
       {/* Right: Chat */}
       <div className="settings-chat-panel">
+        <div className="chat-header">
+          <h3>Knowledge Base Chat</h3>
+          <button 
+            className="clear-chat-btn" 
+            onClick={clearChat}
+            title="Clear chat history"
+          >
+            Clear Chat
+          </button>
+        </div>
         <div className="chat-messages" ref={messagesEndRef}>
           {messages.map((msg, idx) => (
-            <div key={idx} className={`chat-message ${msg.type}`}>{msg.text}</div>
+            <div key={idx} className={`chat-message ${msg.type}`}>
+              {msg.type === 'bot' ? (
+                <ReactMarkdown>{msg.text}</ReactMarkdown>
+              ) : (
+                msg.text
+              )}
+            </div>
           ))}
+          {isLoading && (
+            <div className="chat-message bot loading">
+              <div className="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              Thinking...
+            </div>
+          )}
+          <div ref={messagesEndRef} />
         </div>
         <form
           className="chat-input-form"
-          onSubmit={e => {
-            e.preventDefault();
-            // handle chat send
-          }}
+          onSubmit={handleChatSubmit}
         >
           <input
             type="text"
             value={inputValue}
             onChange={e => setInputValue(e.target.value)}
             placeholder="Type your question..."
+            disabled={isLoading}
           />
-          <button type="submit">Send</button>
+          <button type="submit" disabled={isLoading || !inputValue.trim()}>
+            {isLoading ? 'Sending...' : 'Send'}
+          </button>
         </form>
       </div>
     </div>

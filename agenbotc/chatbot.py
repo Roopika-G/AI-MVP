@@ -4,12 +4,26 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 from vector_store import vector_store
+from dotenv import load_dotenv
+
+# === Load credentials from .env file ===
+# Get the path to the .env file in the same directory as this script
+current_dir = os.path.dirname(os.path.abspath(__file__))
+env_path = os.path.join(current_dir, '.env')
+print(f"Loading .env from chatbot.py: {env_path}")
+print(f"File exists: {os.path.exists(env_path)}")
+load_dotenv(dotenv_path=env_path)
+OPENAI_TOKEN = os.getenv('OPENAI_API_KEY')
+print(f"OpenAI Token in chatbot.py: {OPENAI_TOKEN}")
+
+if not OPENAI_TOKEN:
+    raise ValueError("OPENAI_API_KEY is not set. Please check your .env file or environment variables.")
 
 # Initialize LLM
 llm = ChatOpenAI(
     model_name="gpt-3.5-turbo",
     temperature=0.3,
-    api_key=os.environ.get("OPENAI_API_KEY", "your-api-key-here")
+    api_key=OPENAI_TOKEN
 )
 
 # Custom prompt template for formatted responses
@@ -76,21 +90,40 @@ def get_chatbot_response(question: str, history: List[Dict] = None):
     
     chat_history = format_chat_history(history)
     
-    # Get response from the language model
-    result = qa_chain({"question": question, "chat_history": chat_history})
-    
-    # Format source information
-    sources = []
-    if "source_documents" in result:
-        for doc in result["source_documents"]:
-            source = doc.metadata.get("source", "Unknown source")
-            if source not in sources:
-                sources.append(source)
-    
-    response = {
-        "answer": result["answer"]
-        #"sources": sources
-    }
-    print(f"Chatbot response: {response}")
-    # Return the response  
-    return response
+    try:
+        # Get response from the language model
+        result = qa_chain({"question": question, "chat_history": chat_history})
+        
+        # Format source information
+        sources = []
+        if "source_documents" in result:
+            for doc in result["source_documents"]:
+                source = doc.metadata.get("source", "Unknown source")
+                if source not in sources:
+                    sources.append(source)
+        
+        # Clean and format the answer
+        answer = result["answer"].strip()
+        
+        # Add sources if available
+        if sources:
+            answer += f"\n\n**Sources:**\n"
+            for i, source in enumerate(sources, 1):
+                # Extract just the filename from the full path
+                filename = source.split('/')[-1].split('\\')[-1]
+                answer += f"{i}. {filename}\n"
+        
+        response = {
+            "answer": answer,
+            "sources": sources
+        }
+        
+        print(f"Chatbot response: {response}")
+        return response
+        
+    except Exception as e:
+        print(f"Error in chatbot response: {str(e)}")
+        return {
+            "answer": "I apologize, but I encountered an error while processing your question. Please try rephrasing your question or check if you have uploaded relevant documents to the knowledge base.",
+            "sources": []
+        }

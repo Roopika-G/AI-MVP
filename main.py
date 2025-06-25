@@ -1,15 +1,44 @@
 import warnings
+import sys
+import os
+import subprocess
+from dotenv import load_dotenv
+
+agenbotc_dir = (os.path.join(os.path.dirname(__file__),".", "agenbotc"))
+sys.path.append(os.path.abspath(agenbotc_dir))
+env_path = os.path.join(agenbotc_dir, ".env")
+
+from fastapi import FastAPI, HTTPException, Request, File, Response, UploadFile, Form
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import yaml
+from typing import List, Optional
+
+# === Load credentials from .env file ===
+print(f"Loading .env file from: {env_path}")
+print(f"File exists: {os.path.exists(env_path)}")
+load_dotenv(dotenv_path=env_path)
+OPENAI_TOKEN = os.getenv('OPENAI_API_KEY')
+print(f"OpenAI Token: {OPENAI_TOKEN}")
+
+# Set the environment variable explicitly for child processes
+if OPENAI_TOKEN:
+    os.environ['OPENAI_API_KEY'] = OPENAI_TOKEN
+else:
+    print("WARNING: OPENAI_API_KEY not found in .env file!")
+    # Check if it's available as a system environment variable
+    OPENAI_TOKEN = os.environ.get('OPENAI_API_KEY')
+    print(f"System environment OPENAI_API_KEY: {OPENAI_TOKEN}")
+
+from ingestion import process_pdf, process_docx, process_ppt, process_website
+from chatbot import get_chatbot_response
+
 # Comprehensive warning suppression - must be done before any other imports
 warnings.filterwarnings("ignore", category=DeprecationWarning) 
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", message=".*HuggingFaceEmbeddings.*deprecated.*")
 warnings.filterwarnings("ignore", message=".*Chroma.*deprecated.*")
 warnings.filterwarnings("ignore", message=".*langchain.*")
-
-# imports for installing requirements and starting the FastAPI backend server
-import sys
-import os
-import subprocess
 
 # Function to install required packages automatically
 def install_requirements():
@@ -47,22 +76,6 @@ def install_requirements():
 # Install requirements before importing other modules
 # print("Checking and installing required packages...")
 # install_requirements()
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),".", "agenbotc")))
-from fastapi import FastAPI, HTTPException, Request, File, Response, UploadFile, Form
-from fastapi.middleware.cors import CORSMiddleware
-import tempfile
-import os
-import subprocess
-from pydantic import BaseModel
-import yaml
-from pydantic import BaseModel
-from typing import List, Optional
-from fastapi import Form
-from fastapi import UploadFile, File
-
-from ingestion import process_pdf, process_docx, process_ppt, process_website
-from chatbot import get_chatbot_response
 
 # Load config
 def load_config():
@@ -224,11 +237,21 @@ async def process_web(url: str = Form(...)):
         return {"status": "error", "message": str(e)}
 
 # -------------------------------------------------------------------------------------------------------------
+class ChatMessage(BaseModel):
+    question: str = ""
+    answer: str = ""
+
 class ChatRequest(BaseModel):
     question: str
-    history: List[str] = []
+    history: List[ChatMessage] = []
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    response = get_chatbot_response(request.question, request.history)
+    # Convert history to the format expected by chatbot
+    history_list = []
+    for msg in request.history:
+        if msg.question and msg.answer:
+            history_list.append({"question": msg.question, "answer": msg.answer})
+    
+    response = get_chatbot_response(request.question, history_list)
     return {"response": response}
