@@ -163,10 +163,8 @@ async def Agentchat(request: ChatRequest):
     if not isinstance(response, (str, dict)):
         response = str(response)
     return {"response": response}
-    #except Exception as e:
+    # except Exception as e:
     #    return {"response": f"Error processing query: {str(e)}", "status": "error"}
-
-
 
 
 if __name__ == "__main__":

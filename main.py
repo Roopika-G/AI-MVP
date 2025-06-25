@@ -28,6 +28,11 @@ else:
 
 from ingestion import process_pdf, process_docx, process_ppt, process_website
 from chatbot import get_chatbot_response
+from llm_agent import LLMAgent
+from tomcat_monitor import TomcatMonitor
+
+llm_agent = LLMAgent()
+tomcat_monitor = TomcatMonitor()   
 
 # Comprehensive warning suppression - must be done before any other imports
 warnings.filterwarnings("ignore", category=DeprecationWarning) 
@@ -251,3 +256,18 @@ async def chat(request: ChatRequest):
     
     response = get_chatbot_response(request.question, history_list)
     return {"response": response}
+
+# -------------------------------------------------------------------------------------------------------------
+# Handles advanced chat interactions using the LLM agent for more sophisticated query processing
+@app.post("/Agentchat")
+async def Agentchat(request: ChatRequest):
+    """Main chat endpoint that routes queries through LLM agent"""
+    print("Processing query through LLM agent" + str(request))
+    #try:
+    response = await llm_agent.process_query(request.question)
+    print(f"LLM Agent response: {response}")
+    if not isinstance(response, (str, dict)):
+        response = str(response)
+    return {"response": response}
+    # except Exception as e:
+    #    return {"response": f"Error processing query: {str(e)}", "status": "error"}

@@ -4,7 +4,7 @@ from typing import Dict, Any, List
 import asyncio
 import chatbot
 from tomcat_monitor import TomcatMonitor
-from knowledge_base import KnowledgeBase
+# from knowledge_base import KnowledgeBase
 from vector_store import vector_store
 from fastapi import FastAPI, UploadFile, File
 
