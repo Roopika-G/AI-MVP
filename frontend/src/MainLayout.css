@@ -19,7 +19,7 @@ html, body, #root {
 .main-content {
   position: absolute;
   top: 64px; /* Height of the top bar */
-  left: 260px; /* Width of the sidebar */
+  left: 235px; /* Width of the sidebar */
   width: calc(100vw - 260px);
   height: calc(100vh - 64px);
   padding-left: 3%;
@@ -38,6 +38,7 @@ html, body, #root {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  
 }
 
 .main-header {
