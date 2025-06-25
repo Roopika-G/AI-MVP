@@ -1,0 +1,27 @@
+fastapi
+uvicorn
+python-multipart
+jinja2
+PyPDF2
+requests
+beautifulsoup4
+langchain
+langchain-openai
+langchain-community
+langchain-text-splitters
+chromadb
+sentence-transformers
+openai
+psutil
+# For testing purposes
+pytest
+aiofiles
+httpx
+# Optional dependencies for additional features
+# Uncomment the following lines if you want to use these features
+pydantic 
+numpy
+pandas
+python-docx
+
+python-pptx

@@ -109,5 +109,3 @@ dist-ssr
 *.sw?
 
 video_avatar/
-# temporarily ignored remove this once API is integrated
-agenbotc/ 
