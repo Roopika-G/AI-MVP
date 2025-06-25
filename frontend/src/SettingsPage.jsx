@@ -227,7 +227,7 @@ function SettingsPage() {
         }))
         .filter(exchange => exchange.question || exchange.answer);
 
-      const response = await fetch('http://localhost:8000/chat', {
+      const response = await fetch('http://localhost:8000/Agentchat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -247,7 +247,7 @@ function SettingsPage() {
       // Add bot response to chat
       setMessages(prev => [...prev, { 
         type: 'bot', 
-        text: result.response.answer || 'Sorry, I couldn\'t generate a response.' 
+        text: result.response || 'Sorry, I couldn\'t generate a response.' 
       }]);
 
     } catch (error) {

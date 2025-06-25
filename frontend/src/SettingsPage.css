@@ -1,19 +1,17 @@
 .settings-split-container {
   display: flex;
   height: 80vh;
-  gap: 2rem;
-  padding: 1rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  gap: 1.5rem;
+  padding: 1rem 1rem 1rem 0.5rem;
   color: black;
 }
 
 .settings-upload-panel {
-  flex: 1;
+  flex: 0 0 320px;
   background: #fff;
   border-radius: 16px;  padding: 0rem 1.5rem 1.5rem 1.5rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  min-width: 380px;
-  max-width: 450px;
+  width: 320px;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -284,14 +282,14 @@
 }
 
 .settings-chat-panel {
-  flex: 2;
+  flex: 1;
   background: #fff;
   border-radius: 16px;
   padding: 2rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  height: 100%;  border: 1px solid rgba(148, 108, 186, 0.1);
+  height: 98%;  border: 1px solid rgba(148, 108, 186, 0.1);
 }
 
 .chat-header {
@@ -540,8 +538,8 @@
   }
   
   .settings-upload-panel {
-    min-width: auto;
-    max-width: none;
+    flex: none;
+    width: 100%;
   }
   
   .settings-chat-panel {

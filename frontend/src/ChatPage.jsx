@@ -1,24 +1,71 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
+import ReactMarkdown from 'react-markdown';
 import VoiceToText from './components/voicetotext';
 import './ChatPage.css';
 
 function ChatPage() {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    { type: 'bot', text: "Hello! I'm your AI Copilot. Ask me questions about PingFederate, get help, or receive step-by-step guidance." }
+  ]);
   const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();  
 
-  const handleSendMessage = () => {
-    if (!inputValue.trim()) return;
-    const userMsg = { type: 'user', text: inputValue };
-    setMessages(prev => [...prev, userMsg]);
-    const copy = inputValue;
+  const handleSendMessage = async () => {
+    if (!inputValue.trim() || isLoading) return;
+
+    const userMessage = inputValue.trim();
     setInputValue('');
-    setTimeout(() => {
-      const botMsg = { type: 'bot', text: `Echo: ${copy}` };
-      setMessages(prev => [...prev, botMsg]);
-    }, 500);
+    setIsLoading(true);
+
+    // Add user message to chat
+    const newMessages = [...messages, { type: 'user', text: userMessage }];
+    setMessages(newMessages);
+
+    try {
+      // Prepare chat history for API (exclude the welcome message)
+      const chatHistory = newMessages
+        .slice(1) // Remove welcome message
+        .map(msg => ({
+          question: msg.type === 'user' ? msg.text : '',
+          answer: msg.type === 'bot' ? msg.text : ''
+        }))
+        .filter(exchange => exchange.question || exchange.answer);
+
+      const response = await fetch('http://localhost:8000/Agentchat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          question: userMessage,
+          history: chatHistory
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      // Add bot response to chat
+      setMessages(prev => [...prev, { 
+        type: 'bot', 
+        text: result.response || 'Sorry, I couldn\'t generate a response.' 
+      }]);
+
+    } catch (error) {
+      console.error('Chat error:', error);
+      setMessages(prev => [...prev, { 
+        type: 'bot', 
+        text: 'Sorry, I encountered an error while processing your question. Please try again.' 
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -58,9 +105,23 @@ function ChatPage() {
         <div className="chat-messages">
           {messages.map((msg, index) => (
             <div key={index} className={`chat-bubble ${msg.type}`}>
-              {msg.text}
+              {msg.type === 'bot' ? (
+                <ReactMarkdown>{msg.text}</ReactMarkdown>
+              ) : (
+                msg.text
+              )}
             </div>
           ))}
+          {isLoading && (
+            <div className="chat-bubble bot loading">
+              <div className="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              Thinking...
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
 
@@ -71,8 +132,11 @@ function ChatPage() {
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
             placeholder="Type your message..."
+            disabled={isLoading}
           />
-          <button onClick={handleSendMessage}>Send</button>
+          <button onClick={handleSendMessage} disabled={isLoading || !inputValue.trim()}>
+            {isLoading ? 'Sending...' : 'Send'}
+          </button>
         </div>
       </div>
     </div>
