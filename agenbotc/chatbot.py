@@ -6,7 +6,7 @@ from langchain_openai import ChatOpenAI
 from vector_store import vector_store
 from dotenv import load_dotenv
 
-# === Load credentials from .env file ===
+# === Load credentials from .env file (place it with OPENAI_API_KEY=<your-api-key> within the agenbotc folder)===
 # Get the path to the .env file in the same directory as this script
 current_dir = os.path.dirname(os.path.abspath(__file__))
 env_path = os.path.join(current_dir, '.env')
@@ -14,7 +14,6 @@ print(f"Loading .env from chatbot.py: {env_path}")
 print(f"File exists: {os.path.exists(env_path)}")
 load_dotenv(dotenv_path=env_path)
 OPENAI_TOKEN = os.getenv('OPENAI_API_KEY')
-print(f"OpenAI Token in chatbot.py: {OPENAI_TOKEN}")
 
 if not OPENAI_TOKEN:
     raise ValueError("OPENAI_API_KEY is not set. Please check your .env file or environment variables.")

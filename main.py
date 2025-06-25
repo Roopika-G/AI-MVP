@@ -14,21 +14,17 @@ from pydantic import BaseModel
 import yaml
 from typing import List, Optional
 
-# === Load credentials from .env file ===
+# === Load credentials from .env file (place it with content - OPENAI_API_KEY=<your-api-key> within the agenbotc folder)===
 print(f"Loading .env file from: {env_path}")
 print(f"File exists: {os.path.exists(env_path)}")
 load_dotenv(dotenv_path=env_path)
 OPENAI_TOKEN = os.getenv('OPENAI_API_KEY')
-print(f"OpenAI Token: {OPENAI_TOKEN}")
 
 # Set the environment variable explicitly for child processes
 if OPENAI_TOKEN:
     os.environ['OPENAI_API_KEY'] = OPENAI_TOKEN
 else:
     print("WARNING: OPENAI_API_KEY not found in .env file!")
-    # Check if it's available as a system environment variable
-    OPENAI_TOKEN = os.environ.get('OPENAI_API_KEY')
-    print(f"System environment OPENAI_API_KEY: {OPENAI_TOKEN}")
 
 from ingestion import process_pdf, process_docx, process_ppt, process_website
 from chatbot import get_chatbot_response
