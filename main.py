@@ -1,20 +1,82 @@
+import warnings
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "agenbotc")))
+import subprocess
+from dotenv import load_dotenv
+
+agenbotc_dir = (os.path.join(os.path.dirname(__file__),".", "agenbotc"))
+sys.path.append(os.path.abspath(agenbotc_dir))
+env_path = os.path.join(agenbotc_dir, ".env")
+
 from fastapi import FastAPI, HTTPException, Request, File, Response, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
-import tempfile
-import os
-import subprocess
 from pydantic import BaseModel
 import yaml
-from pydantic import BaseModel
 from typing import List, Optional
-from fastapi import Form
-from fastapi import UploadFile, File
 
-from ingestion import process_pdf, process_docx, process_ppt, process_website #WILL NEED THESE FROM MURALI'S CODE Ingest.py
-from chatbot import get_chatbot_response # WILL NEED THESE FROM MURALI'S CODE Chatbot.py
+# === Load credentials from .env file (place it with content - OPENAI_API_KEY=<your-api-key> within the agenbotc folder)===
+print(f"Loading .env file from: {env_path}")
+print(f"File exists: {os.path.exists(env_path)}")
+load_dotenv(dotenv_path=env_path)
+OPENAI_TOKEN = os.getenv('OPENAI_API_KEY')
+
+# Set the environment variable explicitly for child processes
+if OPENAI_TOKEN:
+    os.environ['OPENAI_API_KEY'] = OPENAI_TOKEN
+else:
+    print("WARNING: OPENAI_API_KEY not found in .env file!")
+
+from ingestion import process_pdf, process_docx, process_ppt, process_website
+from chatbot import get_chatbot_response
+from llm_agent import LLMAgent
+from tomcat_monitor import TomcatMonitor
+
+llm_agent = LLMAgent()
+tomcat_monitor = TomcatMonitor()   
+
+# Comprehensive warning suppression - must be done before any other imports
+warnings.filterwarnings("ignore", category=DeprecationWarning) 
+warnings.filterwarnings("ignore", category=UserWarning)
+warnings.filterwarnings("ignore", message=".*HuggingFaceEmbeddings.*deprecated.*")
+warnings.filterwarnings("ignore", message=".*Chroma.*deprecated.*")
+warnings.filterwarnings("ignore", message=".*langchain.*")
+
+# Function to install required packages automatically
+def install_requirements():
+    """Install all required packages from requirements.txt before starting the server"""
+    try:
+        requirements_path = os.path.join(os.path.dirname(__file__), "requirements.txt")
+        if not os.path.exists(requirements_path):
+            print("requirements.txt not found - skipping package installation")
+            return
+        
+        # Check if key packages are already installed to avoid reinstalling on every reload
+        try:
+            import fastapi
+            import uvicorn
+            import langchain
+            import chromadb
+            # import knowledge
+            print("Key packages already installed - skipping installation")
+            return
+        except ImportError:
+            # If any key package is missing, proceed with installation
+            pass
+        
+        print("Installing packages from requirements.txt...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", requirements_path])
+        print("All requirements installed successfully!")
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Error installing requirements: {e}")
+        print("Continuing with startup - some features may not work properly")
+    except Exception as e:
+        print(f"Unexpected error during package installation: {e}")
+        print("Continuing with startup - some features may not work properly")
+
+# Install requirements before importing other modules
+# print("Checking and installing required packages...")
+# install_requirements()
 
 # Load config
 def load_config():
@@ -87,13 +149,24 @@ async def get_avatar_text():
 # api to handle file upload (pdf type) for RAG training and vector storing
 @app.post("/upload/pdf")
 async def upload_pdf(file: UploadFile = File(...)):
-    file_location = f"uploads/{file.filename}"
-    os.makedirs("uploads", exist_ok=True)
+    # Ensure uploads go to agenbotc folder
+    agenbotc_dir = os.path.join(os.path.dirname(__file__), "agenbotc")
+    uploads_dir = os.path.join(agenbotc_dir, "uploads")
+    os.makedirs(uploads_dir, exist_ok=True)
+    
+    file_location = os.path.join(uploads_dir, file.filename)
     with open(file_location, "wb") as f:
         f.write(await file.read())
     try:
-        doc_id = process_pdf(file_location)
-        return {"status": "success", "message": f"PDF processed successfully", "doc_id": doc_id}
+        result = process_pdf(file_location)
+        if isinstance(result, dict):
+            if result.get("is_duplicate"):
+                return {"status": "duplicate", "message": result["message"], "doc_id": result["doc_id"]}
+            else:
+                return {"status": "success", "message": result["message"], "doc_id": result["doc_id"]}
+        else:
+            # Backward compatibility for old return format
+            return {"status": "success", "message": f"PDF processed successfully", "doc_id": result}
     except Exception as e:
         return {"status": "error", "message": str(e)}
     
@@ -101,13 +174,24 @@ async def upload_pdf(file: UploadFile = File(...)):
 # api to handle docx file upload for RAG training and vector storing
 @app.post("/upload/docx")
 async def upload_docx(file: UploadFile = File(...)):
-    file_location = f"uploads/{file.filename}"
-    os.makedirs("uploads", exist_ok=True)
+    # Ensure uploads go to agenbotc folder
+    agenbotc_dir = os.path.join(os.path.dirname(__file__), "agenbotc")
+    uploads_dir = os.path.join(agenbotc_dir, "uploads")
+    os.makedirs(uploads_dir, exist_ok=True)
+    
+    file_location = os.path.join(uploads_dir, file.filename)
     with open(file_location, "wb") as f:
         f.write(await file.read())
     try:
-        doc_id = process_docx(file_location)
-        return {"status": "success", "message": f"DOCX processed successfully", "doc_id": doc_id}
+        result = process_docx(file_location)
+        if isinstance(result, dict):
+            if result.get("is_duplicate"):
+                return {"status": "duplicate", "message": result["message"], "doc_id": result["doc_id"]}
+            else:
+                return {"status": "success", "message": result["message"], "doc_id": result["doc_id"]}
+        else:
+            # Backward compatibility for old return format
+            return {"status": "success", "message": f"DOCX processed successfully", "doc_id": result}
     except Exception as e:
         return {"status": "error", "message": str(e)}
     
@@ -115,13 +199,24 @@ async def upload_docx(file: UploadFile = File(...)):
 # api to handle ppt file upload for RAG training and vector storing
 @app.post("/upload/ppt")
 async def upload_ppt(file: UploadFile = File(...)):
-    file_location = f"uploads/{file.filename}"
-    os.makedirs("uploads", exist_ok=True)
+    # Ensure uploads go to agenbotc folder
+    agenbotc_dir = os.path.join(os.path.dirname(__file__), "agenbotc")
+    uploads_dir = os.path.join(agenbotc_dir, "uploads")
+    os.makedirs(uploads_dir, exist_ok=True)
+    
+    file_location = os.path.join(uploads_dir, file.filename)
     with open(file_location, "wb") as f:
         f.write(await file.read())
     try:
-        doc_id = process_ppt(file_location)
-        return {"status": "success", "message": f"PPT processed successfully", "doc_id": doc_id}
+        result = process_ppt(file_location)
+        if isinstance(result, dict):
+            if result.get("is_duplicate"):
+                return {"status": "duplicate", "message": result["message"], "doc_id": result["doc_id"]}
+            else:
+                return {"status": "success", "message": result["message"], "doc_id": result["doc_id"]}
+        else:
+            # Backward compatibility for old return format
+            return {"status": "success", "message": f"PPT processed successfully", "doc_id": result}
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
@@ -130,17 +225,49 @@ async def upload_ppt(file: UploadFile = File(...)):
 @app.post("/process/website")
 async def process_web(url: str = Form(...)):
     try:
-        doc_id = process_website(url)
-        return {"status": "success", "message": f"Website processed successfully", "doc_id": doc_id}
+        result = process_website(url)
+        if isinstance(result, dict):
+            if result.get("is_duplicate"):
+                return {"status": "duplicate", "message": result["message"], "doc_id": result["doc_id"]}
+            else:
+                return {"status": "success", "message": result["message"], "doc_id": result["doc_id"]}
+        else:
+            # Backward compatibility for old return format
+            return {"status": "success", "message": f"Website processed successfully", "doc_id": result}
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
 # -------------------------------------------------------------------------------------------------------------
+class ChatMessage(BaseModel):
+    question: str = ""
+    answer: str = ""
+
 class ChatRequest(BaseModel):
     question: str
-    history: List[str] = []
+    history: List[ChatMessage] = []
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    response = get_chatbot_response(request.question, request.history)
+    # Convert history to the format expected by chatbot
+    history_list = []
+    for msg in request.history:
+        if msg.question and msg.answer:
+            history_list.append({"question": msg.question, "answer": msg.answer})
+    
+    response = get_chatbot_response(request.question, history_list)
     return {"response": response}
+
+# -------------------------------------------------------------------------------------------------------------
+# Handles advanced chat interactions using the LLM agent for more sophisticated query processing
+@app.post("/Agentchat")
+async def Agentchat(request: ChatRequest):
+    """Main chat endpoint that routes queries through LLM agent"""
+    print("Processing query through LLM agent" + str(request))
+    #try:
+    response = await llm_agent.process_query(request.question)
+    print(f"LLM Agent response: {response}")
+    if not isinstance(response, (str, dict)):
+        response = str(response)
+    return {"response": response}
+    # except Exception as e:
+    #    return {"response": f"Error processing query: {str(e)}", "status": "error"}

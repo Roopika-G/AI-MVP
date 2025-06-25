@@ -1,0 +1,49 @@
+{
+  "32661ad6-4621-4a18-86a8-799a2eda7ed2": {
+    "source": "https://docs.pingidentity.com/pingfederate/12.2/release_notes/pf_release_notes.html",
+    "type": "website",
+    "processed_at": "e42f57e1-8012-4613-bc78-0070c5d1df98",
+    "filename": null,
+    "content_hash": "b24e98047e247134fa8aa6b5a8f73d78"
+  },
+  "0abd14c1-c33f-4a6f-80c5-1571b60d3abe": {
+    "source": "C:\\Users\\meswe\\Desktop\\EduServIT\\vega_ai\\AI-MVP\\agenbotc\\uploads\\PF-300-BVP_StudentWorkbook_FINAL (Watermarked for Instructor).pdf",
+    "type": "pdf",
+    "processed_at": "1b0dcf80-2b68-40c4-a89a-c44b1a8197ce",
+    "filename": "PF-300-BVP_StudentWorkbook_FINAL (Watermarked for Instructor).pdf",
+    "file_hash": "a5b89ea47a10637b96dfad9b2d79d96b",
+    "content_hash": "17b28f0b623d832bf107ec64f9916f73"
+  },
+  "3144c03d-b191-444e-bb6c-8a8d36e79386": {
+    "source": "C:\\Users\\meswe\\Desktop\\EduServIT\\vega_ai\\AI-MVP\\agenbotc\\uploads\\AtlassianCloudSSO.docx",
+    "type": "docx",
+    "processed_at": "1ef9d4c6-a3ef-4932-826c-a6212955afa0",
+    "filename": "AtlassianCloudSSO.docx",
+    "file_hash": "8660791b75365fc30d2c1cb6ba68130f",
+    "content_hash": "307a02919cc749facbb0ac1219e7e2eb"
+  },
+  "45bd6dc8-4c44-425a-9d18-e28d6bda2888": {
+    "source": "C:\\Users\\meswe\\Desktop\\EduServIT\\vega_ai\\AI-MVP\\agenbotc\\uploads\\OWASP-LLM_GenAI-Security-Solutions-Reference-Guide-v1.1.25.pdf",
+    "type": "pdf",
+    "processed_at": "b3b66c6c-b02a-4c80-b7ba-935cc527632c",
+    "filename": "OWASP-LLM_GenAI-Security-Solutions-Reference-Guide-v1.1.25.pdf",
+    "file_hash": "e7b74b53e2aba9156a77bcacb9e39caa",
+    "content_hash": "02eb71785baac59a7c7756812e2b4f97"
+  },
+  "50123542-0b11-4ff6-bef1-c6a83021f8f0": {
+    "source": "C:\\Users\\meswe\\Desktop\\EduServIT\\vega_ai\\AI-MVP\\agenbotc\\uploads\\DockerDesktopSSO.docx",
+    "type": "docx",
+    "processed_at": "8145522f-6c6f-487b-bd2d-fe0d30ec6c53",
+    "filename": "DockerDesktopSSO.docx",
+    "file_hash": "0e6552b4b352ef2eb9546841639938f2",
+    "content_hash": "9059af92342926061ca2785238e40706"
+  },
+  "c60103d4-db5a-4b8e-80b2-63011f85a164": {
+    "source": "C:\\Users\\meswe\\Desktop\\EduServIT\\vega_ai\\AI-MVP\\agenbotc\\uploads\\02-Intro_to_Federation.pptx",
+    "type": "ppt",
+    "processed_at": "b4241603-3b7b-4a76-9a62-940182264a5e",
+    "filename": "02-Intro_to_Federation.pptx",
+    "file_hash": "d8d219c3f63f20f16814957ace51db76",
+    "content_hash": "1ea8062960b55edf0ebbaef8ddf7f883"
+  }
+}
