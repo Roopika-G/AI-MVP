@@ -5,7 +5,6 @@ import './top_bar.css'
 function Topbar() {
   const [active, setActive] = useState('Applications');
   const [showDropdown, setShowDropdown] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
   const dropdownRef = useRef(null);
   const avatarRef = useRef(null);
 
@@ -46,36 +45,18 @@ function Topbar() {
         <div className="header-logo">
           <img src="/Vega Logo.png" alt="Vega Logo" />
         </div>
-        <div className="header-app-name">AI-Copilot</div>
+        <div className="header-app-name">IAM-Copilot</div>
         <div className="header-user-info">
           <div
             className="user-avatar user-avatar-circle"
             ref={avatarRef}
             onClick={() => setShowDropdown((prev) => !prev)}
-            onMouseEnter={() => setShowTooltip(true)}
-            onMouseLeave={() => setShowTooltip(false)}
             style={{ cursor: 'pointer', position: 'relative' }}
             tabIndex={0}
+            title='Dropdown'
           >
             {avatarLetter}
-            {showTooltip && !showDropdown && (
-              <div className="white-tooltip" style={{
-                position: 'absolute',
-                top: '56px',
-                right: 0,
-                background: '#fff',
-                color: '#23242a',
-                border: '1px solid #eee',
-                borderRadius: '8px',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                padding: '8px 16px',
-                fontSize: '0.5em',
-                zIndex: 10001,
-                whiteSpace: 'nowrap'
-              }}>
-                Open Dropdown
-              </div>
-            )}
+            
           </div>
           <div className="header-user-text">
             <div className="greeting">Hi there,</div>

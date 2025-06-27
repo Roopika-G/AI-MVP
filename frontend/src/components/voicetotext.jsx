@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { BiReset } from "react-icons/bi";
 import { FaMicrophone, FaStop } from "react-icons/fa";
-import '../ChatPage.css';
+import '../pages/ChatPage.css';
 
 const VoiceToText = ({ onTranscript }) => {
   const [recording, setRecording] = useState(false);

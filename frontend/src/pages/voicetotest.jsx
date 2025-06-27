@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { BiReset } from "react-icons/bi";
 import { FaMicrophone, FaStop, FaSave } from "react-icons/fa";
-import '../ChatPage.css';
+import './ChatPage.css';
 
 const VoiceToTest = ({ onTranscript }) => {
 
@@ -134,7 +134,7 @@ const VoiceToTest = ({ onTranscript }) => {
   return (
     <div style={{ color: 'black', flexDirection: 'column' }} >
       <div>
-        <button  onClick={() => navigate('/applications')}
+        <button  onClick={() => navigate('/services')}
         >
           Back
         </button>
