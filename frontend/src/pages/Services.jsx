@@ -4,12 +4,10 @@ import './MainLayout.css';
 import Sidebar from '../components/sidebar.jsx';
 import Topbar from '../components/top_bar.jsx';
 import ChatPage from './ChatPage.jsx';
-import { FaMicrophoneAlt } from "react-icons/fa";
 
 function ApplicationsPage({ children }) {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
-    const isChatPage = location.pathname === '/services/chat';
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
@@ -21,24 +19,17 @@ function ApplicationsPage({ children }) {
       <Topbar />
 
       <Sidebar />
-      <main className={`main-content ${isChatPage ? 'main-content-chat' : ''}`}>
-        {children ? (
-          children
-        ) : isChatPage ? (
-          <ChatPage />
-        ) : (
-          <>
-            <div className="page-title-container">
-              <button className="back-arrow-btn" onClick={() => navigate('/applications')} title="Back to Applications">
+      <main className={`main-content`}>
+        <div className="page-title-container">
+          <button className="back-arrow-btn" onClick={() => navigate('/applications')} title="Back to Applications">
                 &#8592;
-              </button>
+          </button>
           <h1 className="page-title">Services</h1>
         </div>        
         <section className="applications-section">
           <div className="cards-row">
             
-            {/* <div className="app-card" onClick={() => navigate('/pingfederate')} style={{ cursor: 'pointer' }}> */}
-            <div className="app-card" onClick={() => navigate('/services/chat')} style={{ cursor: 'pointer' }}>
+            <div className="app-card" onClick={() => navigate('/chatpage')} style={{ cursor: 'pointer' }}>
               <div className="card-title">PingFederate</div>
               <img src="/PF-Logo.png" alt="PingFederate" className="card-img" />
             </div>
@@ -58,15 +49,13 @@ function ApplicationsPage({ children }) {
               <img src="/TTS-Logo.png" alt="Text to Speech" className="card-img" />
             </div> 
             
-            {/* <div className="app-card" onClick={() => navigate('/aiavatar')} style={{ cursor: 'pointer' }}>
+            <div className="app-card" onClick={() => navigate('/aiavatar')} style={{ cursor: 'pointer' }}>
               <div className="card-title">AI Avatar Assistant</div>
               <img src="/Heygen-Logo.png" alt="Heygen" className="card-img" />
-            </div> */}
+            </div>
 
           </div>
         </section>
-          </>
-        )}
       </main>
 
     </div>
