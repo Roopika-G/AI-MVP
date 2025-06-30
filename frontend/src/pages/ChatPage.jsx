@@ -79,7 +79,7 @@ function ChatPage() {
       <Topbar />
       <Sidebar />
     <div className="chat-container">
-      {/* <div className="chat-left" >
+      <div className="chat-left" >
         <div className="avatar-full-rectangle" style={{ background: 'linear-gradient(to right, #2196f3, #4caf50)' }}> 
         </div>
         <div className="chat-icon-buttons">
