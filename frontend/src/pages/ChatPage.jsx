@@ -145,5 +145,5 @@ function ChatPage() {
     </div>
     </div>
   );
-}
+};
 export default ChatPage;
