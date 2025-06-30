@@ -21,9 +21,9 @@ function Login() {
       const data = await res.json();
       console.log('Login data:', data);
       if (data.success) {
-        localStorage.setItem('username', username);
-        localStorage.setItem('role', data.role);
-        console.log('Set role in localStorage:', data.role);
+        sessionStorage.setItem('username', username);
+        sessionStorage.setItem('role', data.role);
+        console.log('Set role in sessionStorage:', data.role);
         if (data.role === 'admin') {
           window.location.href = '/settings';
         } else {

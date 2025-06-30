@@ -14,11 +14,11 @@ import TTS from './pages/TTS';
 import SettingsPage from './pages/SettingsPage';
 
 function App() {
-  // For now, use localStorage for auth state (simple demo)
-  const role = localStorage.getItem('role');
-  const isAuthenticated = !!localStorage.getItem('role');
+  // For now, use sessionStorage for auth state (simple demo)
+  const role = sessionStorage.getItem('role');
+  const isAuthenticated = !!sessionStorage.getItem('role');
   // Add these logs:
-  console.log('App.jsx: role from localStorage:', role);
+  console.log('App.jsx: role from sessionStorage:', role);
   console.log('App.jsx: isAuthenticated:', isAuthenticated);
 
   return (

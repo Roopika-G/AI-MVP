@@ -30,7 +30,7 @@ function MainLayout() {
             <div className="page-title-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
               <h1 className="page-title">Applications</h1>
               <h3> Up to date AI-powered assistance to guide you</h3>
-            </div>
+            </div> 
             <section className="applications-section">
               <div className="cards-row">
                 <div className="app-card" onClick={() => navigate('/services')}>

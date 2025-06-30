@@ -1,20 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import './MainLayout.css';
 import Sidebar from '../components/sidebar.jsx';
 import Topbar from '../components/top_bar.jsx';
-import ChatPage from './ChatPage.jsx';
-import { FaMicrophoneAlt } from "react-icons/fa";
 
 function ApplicationsPage({ children }) {
   const navigate = useNavigate();
-  const [showDropdown, setShowDropdown] = useState(false);
-    const isChatPage = location.pathname === '/services/chat';
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    window.location.href = '/login';
-  };
 
   return (
     <div className="main-layout full-screen">

@@ -73,10 +73,12 @@ function ChatPage() {
   }, [messages]);
 
   return (
+    <div className="chat-page">
+      <Topbar />
+      {/* <Sidebar /> */}
     <div className="chat-container">
-      <div className="chat-left" >
+      {/* <div className="chat-left" >
         <div className="avatar-full-rectangle" style={{ background: 'linear-gradient(to right, #2196f3, #4caf50)' }}> 
-          {/* Avatar goes here */}
         </div>
         <div className="chat-icon-buttons">
           <VoiceToText onTranscript={text => setInputValue(text)}/>
@@ -85,7 +87,6 @@ function ChatPage() {
       </div>
 
       <div className="chat-right">
-        {/* Back arrow */}
         <div className="chat-back-header" style={{alignItems: 'center'}}>
           <button
             className="chat-back-button"
@@ -138,7 +139,8 @@ function ChatPage() {
             {isLoading ? 'Sending...' : 'Send'}
           </button>
         </div>
-      </div>
+      </div> */}
+    </div>
     </div>
   );
 }

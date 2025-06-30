@@ -29,50 +29,47 @@ function Topbar() {
     };
   }, [showDropdown]);
 
-  const username = localStorage.getItem('username') || 'User';
+  const username = sessionStorage.getItem('username') || 'User';
   const avatarLetter = username ? username.charAt(0).toUpperCase() : 'U';
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('username');
     window.location.href = '/login';
   };
 
   return (
-    <div>
-      <div className="top-header">
-        <div className="header-logo">
-          <img src="/Vega Logo.png" alt="Vega Logo" />
+    <div className="top-header">
+      <div className="header-logo">
+        <img src="/Vega Logo.png" alt="Vega Logo" />
+      </div>
+      <div className="header-app-name">IAM-Copilot</div> 
+      <div className="header-user-info">
+        <div
+          className="user-avatar user-avatar-circle"
+          ref={avatarRef}
+          onClick={() => setShowDropdown((prev) => !prev)}
+          tabIndex={0}
+          title='Dropdown'
+        >
+          {avatarLetter}
+          
         </div>
-        <div className="header-app-name">IAM-Copilot</div>
-        <div className="header-user-info">
+        <div className="header-user-text">
+          <div className="greeting">Hi there,</div>
+          <div className="username">{username}</div>
+        </div>
+        {showDropdown && (
           <div
-            className="user-avatar user-avatar-circle"
-            ref={avatarRef}
-            onClick={() => setShowDropdown((prev) => !prev)}
-            style={{ cursor: 'pointer', position: 'relative' }}
-            tabIndex={0}
-            title='Dropdown'
+            className="logout-dropdown"
+            ref={dropdownRef}
+            onClick={handleLogout}
+            style={{ cursor: 'pointer' }}
           >
-            {avatarLetter}
-            
+            Logout
           </div>
-          <div className="header-user-text">
-            <div className="greeting">Hi there,</div>
-            <div className="username">{username}</div>
-          </div>
-          {showDropdown && (
-            <div
-              className="logout-dropdown"
-              ref={dropdownRef}
-              onClick={handleLogout}
-              style={{ cursor: 'pointer' }}
-            >
-              Logout
-            </div>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
