@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import VoiceToText from '../components/voicetotext';
 import './ChatPage.css';
+import Topbar from '../components/top_bar';
+import Sidebar from '../components/sidebar';
 
 function ChatPage() {
   const [messages, setMessages] = useState([
@@ -75,7 +77,7 @@ function ChatPage() {
   return (
     <div className="chat-page">
       <Topbar />
-      {/* <Sidebar /> */}
+      <Sidebar />
     <div className="chat-container">
       {/* <div className="chat-left" >
         <div className="avatar-full-rectangle" style={{ background: 'linear-gradient(to right, #2196f3, #4caf50)' }}> 
@@ -139,7 +141,7 @@ function ChatPage() {
             {isLoading ? 'Sending...' : 'Send'}
           </button>
         </div>
-      </div> */}
+      </div>
     </div>
     </div>
   );

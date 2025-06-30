@@ -12,6 +12,8 @@ import './App.css';
 import VoiceToTest from './pages/voicetotest';
 import TTS from './pages/TTS';
 import SettingsPage from './pages/SettingsPage';
+import AvatarPage from './pages/avatartest';
+import ChatPage from './pages/ChatPage';
 
 function App() {
   // For now, use sessionStorage for auth state (simple demo)
@@ -44,6 +46,12 @@ function App() {
         />
 
         <Route
+          // path="/pingfederate/*"
+          path = "/chatpage"
+          element={isAuthenticated ? <ChatPage /> : <Navigate to="/login" />}
+        />
+
+        <Route
           path="/voicetotest"
           element={isAuthenticated ? <VoiceToTest /> : <Navigate to="/login" />}
         />
@@ -53,10 +61,10 @@ function App() {
           element={isAuthenticated ? <TTS /> : <Navigate to="/login" />}
         />
 
-        {/* <Route
+        <Route
           path="/aiavatar"
           element={isAuthenticated ? <AvatarPage /> : <Navigate to="/login" />}
-        /> */}
+        />
 
         <Route
           path="/*"

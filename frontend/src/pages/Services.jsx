@@ -42,8 +42,10 @@ function ApplicationsPage() {
             </div> 
             
             <div className="app-card" onClick={() => navigate('/aiavatar')} style={{ cursor: 'pointer' }}>
+            <div className="app-card" onClick={() => navigate('/aiavatar')} style={{ cursor: 'pointer' }}>
               <div className="card-title">AI Avatar Assistant</div>
               <img src="/Heygen-Logo.png" alt="Heygen" className="card-img" />
+            </div>
             </div>
 
           </div>
