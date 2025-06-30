@@ -4,7 +4,6 @@ import './sidebarLayout.css';
 
 function Sidebar() {
     const navigate = useNavigate();
-    const [active, setActive] = useState('Applications');
     const role = sessionStorage.getItem('role');
 
     if (role === 'admin') {

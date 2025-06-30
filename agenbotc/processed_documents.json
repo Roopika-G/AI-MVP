@@ -60,5 +60,12 @@
     "filename": "jamfcloudSAASSSO.docx",
     "file_hash": "ea80c8a3641675c0ec98ef4b9429443b",
     "content_hash": "7ea3ed25ce42a5ec423e557aa1d95b96"
+  },
+  "6d25cfae-c3a0-4a5c-b407-69cda6e78596": {
+    "source": "https://docs.pingidentity.com/pingfederate/12.3/introduction_to_pingfederate/pf_intro_to_pf.html",
+    "type": "website",
+    "processed_at": "e1ece674-efa0-4c80-8abc-0a30ed457408",
+    "filename": null,
+    "content_hash": "83cd181917aace55c1e198149caa91b2"
   }
 }

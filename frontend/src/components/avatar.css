@@ -48,9 +48,6 @@ button {
   transition-duration: 0.4s;
 }
 
-button:hover {
-  background-color: #45a049;
-}
 
 input {
   height: 40px;

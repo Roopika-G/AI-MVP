@@ -1,23 +1,23 @@
 .chat-page{
+  top: 0;
+  left: 0;
+  padding: 0 0 0 0;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  min-width: fit-content;
-  max-width: 100vw;
-  overflow: hidden;
-  position: relative;
-  /* background-color: black; */
+  width: 100vw;
+  position: absolute;
 }
 
 .chat-container {
-  position: absolute;
-  top: 45px;
-  left: 64px;
-  height: calc(100vh - 64px);
-  display: flex;
+  position: relative;
+  top: 9%;
+  left: 15.7%;
+  height: calc(100vh - 9%);
+  width: calc(100vw - 15.7%);
   background-color: white;
-  box-sizing: border-box;
-  /* background-color: black; */
+  display: flex;
+  padding: 1% 1% 1% 1%;
 }
 
 /* Fills the sidebar space + stretches */
@@ -132,7 +132,7 @@
 
 .chat-bubble.bot {
   align-self: flex-start;
-  background-color: #f3f4f6;
+  background-color: #d5d6d8;
   color: #111827;
   border-bottom-left-radius: 4px;
 }

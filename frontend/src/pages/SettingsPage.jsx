@@ -27,7 +27,7 @@ function SettingsPage() {
   // Scroll to bottom when new messages are added
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages]); 
   // Function to manually dismiss notification
   const dismissNotification = () => {
     if (notificationTimeoutRef.current) {
@@ -280,7 +280,7 @@ return (
                 onClick={dismissNotification}
                 aria-label="Dismiss notification"
               >
-                ×
+                x
               </button>
             </div>
           )}
@@ -367,7 +367,6 @@ return (
           </form>
         </div>
 
-        {/* Right: Chat */}
         <div className="settings-chat-panel">
           <div className="chat-header">
             <h3>Knowledge Base Chat</h3>

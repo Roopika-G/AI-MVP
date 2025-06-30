@@ -3,20 +3,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './MainLayout.css';
 import Sidebar from '../components/sidebar';
 import Topbar from '../components/top_bar';
-import ChatPage from './ChatPage';
 
-const sidebarItems = [
-  { label: 'Applications' },
-  { label: 'IAM-GPT' },
-  { label: 'Settings' },
-  { label: 'Support' },
-  { label: 'Privacy' },
-];
 
 function MainLayout() {
-  const [active, setActive] = useState('Applications');
   const navigate = useNavigate();
-  const location = useLocation();
 
   return (
     <div className="main-layout">

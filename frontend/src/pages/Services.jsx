@@ -21,7 +21,7 @@ function ApplicationsPage() {
         <section className="applications-section">
           <div className="cards-row">
             
-            <div className="app-card" onClick={() => navigate('/services/chat')} style={{ cursor: 'pointer' }}>
+            <div className="app-card" onClick={() => navigate('/chatpage')} style={{ cursor: 'pointer' }}>
               <div className="card-title">PingFederate</div>
               <img src="/PF-Logo.png" alt="PingFederate" className="card-img" />
             </div>
@@ -42,10 +42,8 @@ function ApplicationsPage() {
             </div> 
             
             <div className="app-card" onClick={() => navigate('/aiavatar')} style={{ cursor: 'pointer' }}>
-            <div className="app-card" onClick={() => navigate('/aiavatar')} style={{ cursor: 'pointer' }}>
               <div className="card-title">AI Avatar Assistant</div>
               <img src="/Heygen-Logo.png" alt="Heygen" className="card-img" />
-            </div>
             </div>
 
           </div>

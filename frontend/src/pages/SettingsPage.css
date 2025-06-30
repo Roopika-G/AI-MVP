@@ -1,27 +1,29 @@
 .settings-page{
   position: absolute;
-  margin-left: 5%;
-  margin-top: 30px;
-  overflow-y: auto;
-  height: calc(100vh - 62px);
-  width: calc(100vw - 221px);
-  
+  left: 0;
+  top: 0;
+  height: 100vh;
+  max-height: fit-content;
+  width: 100vw;
 }
 
 .settings-split-container {
+  position: relative;
   display: flex;
-  height: 80vh;
+  top: 9%;
+  left: 15.7%;
+  height: calc(100vh - 9%);
+  width: calc(100vw - 15.7%);
   gap: 1.5rem;
   padding: 1rem 1rem 1rem 0.5rem;
   color: black;
-  
 }
 
 .settings-upload-panel {
   flex: 0 0 320px;
   background: #fff;
   border-radius: 16px;  
-  padding: 0rem 1.5rem 1rem 1.5rem;
+  padding: 1rem 1.5rem 1rem 1.5rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   width: 320px;
   height: fit-content;
@@ -36,22 +38,22 @@
   font-size: 1.5rem;
   font-weight: 600;
   gap: 0.5rem;  
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   text-align: center;
   border-bottom: 2px solid #946cba;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 .settings-upload-panel form > div {
   margin-bottom: 1rem;
-  padding: 0rem;
+  padding: 0.2rem;
   border: 2px dashed #e2e8f0;
   border-radius: 12px;
   transition: all 0.3s ease;
   background: linear-gradient(145deg, #f8fafc, #f1f5f9);
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.2rem;
 }
 
 .settings-upload-panel form > div:hover {
@@ -62,8 +64,8 @@
 
 /* Upload Status Notification Styles */
 .upload-status {
-  margin-bottom: 1rem;
-  padding: 1rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
   border-radius: 8px;
   font-weight: 500;
   text-align: center;
@@ -76,13 +78,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.2rem;
 }
 
 .upload-status.show {
   transform: translateY(0);
   opacity: 1;
-  max-height: 100px;
+  max-height: fit-content;
 }
 
 .upload-status.success {
