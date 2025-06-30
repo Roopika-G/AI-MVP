@@ -3,31 +3,24 @@ import './MainLayout.css';
 import Sidebar from '../components/sidebar.jsx';
 import Topbar from '../components/top_bar.jsx';
 
-function ApplicationsPage({ children }) {
+function ApplicationsPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="main-layout full-screen">
+    <div className="main-layout">
       <Topbar />
 
       <Sidebar />
-      <main className={`main-content ${isChatPage ? 'main-content-chat' : ''}`}>
-        {children ? (
-          children
-        ) : isChatPage ? (
-          <ChatPage />
-        ) : (
-          <>
-            <div className="page-title-container">
-              <button className="back-arrow-btn" onClick={() => navigate('/applications')} title="Back to Applications">
-                &#8592;
-              </button>
+      <main className={`main-content`}>
+        <div className="page-title-container">
+          <button className="back-arrow-btn" onClick={() => navigate('/applications')} title="Back to Applications">
+            &#8592;
+          </button>
           <h1 className="page-title">Services</h1>
         </div>        
         <section className="applications-section">
           <div className="cards-row">
             
-            {/* <div className="app-card" onClick={() => navigate('/pingfederate')} style={{ cursor: 'pointer' }}> */}
             <div className="app-card" onClick={() => navigate('/services/chat')} style={{ cursor: 'pointer' }}>
               <div className="card-title">PingFederate</div>
               <img src="/PF-Logo.png" alt="PingFederate" className="card-img" />
@@ -48,15 +41,13 @@ function ApplicationsPage({ children }) {
               <img src="/TTS-Logo.png" alt="Text to Speech" className="card-img" />
             </div> 
             
-            {/* <div className="app-card" onClick={() => navigate('/aiavatar')} style={{ cursor: 'pointer' }}>
+            <div className="app-card" onClick={() => navigate('/aiavatar')} style={{ cursor: 'pointer' }}>
               <div className="card-title">AI Avatar Assistant</div>
               <img src="/Heygen-Logo.png" alt="Heygen" className="card-img" />
-            </div> */}
+            </div>
 
           </div>
         </section>
-          </>
-        )}
       </main>
 
     </div>

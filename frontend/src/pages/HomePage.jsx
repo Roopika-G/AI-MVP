@@ -19,7 +19,7 @@ function MainLayout() {
   const location = useLocation();
 
   return (
-    <div className="main-layout full-screen">
+    <div className="main-layout">
       
       <Topbar />
       

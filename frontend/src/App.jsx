@@ -39,7 +39,7 @@ function App() {
 
         <Route
           // path="/pingfederate/*"
-          path = "/services/*"
+          path = "/services"
           element={isAuthenticated ? <Services /> : <Navigate to="/login" />}
         />
 
