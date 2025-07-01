@@ -12,17 +12,17 @@
 }
 
 /* Background styles */
-.avatar-background.gradient-blue-purple {
-  background: linear-gradient(135deg, #4568dc, #b06ab3);
-}
+/* .avatar-background.gradient-blue-purple {
+  /* background: linear-gradient(135deg, #4568dc, #b06ab3); 
+} */
 
-.avatar-background.gradient-dark {
+/* .avatar-background.gradient-dark {
   background: linear-gradient(to bottom, #2c3e50, #1a1a1a);
-}
+} */
 
-.avatar-background.solid-dark {
+/* .avatar-background.solid-dark {
   background-color: #121212;
-}
+} */
 
 /* Office background images */
 .avatar-background.office-bg-1 {

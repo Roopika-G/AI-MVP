@@ -317,7 +317,7 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
   
   // Normal avatar UI with video
   return (
-    <div className="Avatar-component" style={{ width: '100%', height: '100%' }}>
+    <div className="Avatar-component" style={{ width: '80%', height: '100%'}}>
       <div className="avatar-container">
         {/* Loading overlay */}
         <div className={`avatar-loading ${!isInitializing ? 'hidden' : ''}`}>
@@ -326,9 +326,9 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
         </div>
         
         {/* Status indicator */}
-        <div className={`avatar-status ${hasError ? 'error' : ''} ${status.includes('speaking') ? 'visible' : ''}`}>
+        {/* <div className={`avatar-status ${hasError ? 'error' : ''} ${status.includes('speaking') ? 'visible' : ''}`}>
           {status.includes('Error') ? 'Connection Error' : (status.includes('speaking') ? 'Speaking...' : '')}
-        </div>
+        </div> */}
         
         {/* Simple background */}
         <div 
@@ -338,7 +338,7 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
             left: 0,
             width: '100%',
             height: '100%',
-            background: 'linear-gradient(135deg, #4568dc, #b06ab3)',
+            // background: 'linear-gradient(135deg, #4568dc, #b06ab3)',
             borderRadius: '8px',
             zIndex: 1
           }}
