@@ -12,9 +12,9 @@
 .chat-container {
   position: relative;
   top: 9%;
-  left: 15.7%;
+  left: 18%;
   height: calc(100vh - 9%);
-  width: calc(100vw - 15.7%);
+  width: calc(100vw - 18%);
   background-color: white;
   display: flex;
   padding: 1% 1% 1% 1%;
@@ -30,10 +30,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 40px 20px;
+  padding: 4% 4% 4% 4%;
   border-right: 1px solid #ddd;
-  box-sizing: border-box;
-  overflow: hidden;
+  background: 'black';
 }
 
 /* Avatar takes full vertical space available */
