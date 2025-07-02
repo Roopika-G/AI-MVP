@@ -54,7 +54,7 @@ const VoiceToText = ({ onTranscript }) => {
   };
 
   return (
-    <div style={{ color: 'black' }}>
+    <div style={{ color: 'black', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', padding: '1rem' }}>
       <div className="chat-icon-buttons">
         <button
           className="round-button"
@@ -87,7 +87,7 @@ const VoiceToText = ({ onTranscript }) => {
       {error && (
         <div style={{ color: "red", marginTop: 10 }}>{error}</div>
       )}
-      <p>Transcript: {transcript}</p>
+      {/* <p>Transcript: {transcript}</p> */}
     </div>
   );
 };

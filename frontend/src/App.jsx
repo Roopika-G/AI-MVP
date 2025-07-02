@@ -16,12 +16,11 @@ import AvatarPage from './pages/avatartest';
 import ChatPage from './pages/ChatPage';
 
 function App() {
-  // For now, use sessionStorage for auth state (simple demo)
   const role = sessionStorage.getItem('role');
   const isAuthenticated = !!sessionStorage.getItem('role');
   // Add these logs:
-  console.log('App.jsx: role from sessionStorage:', role);
-  console.log('App.jsx: isAuthenticated:', isAuthenticated);
+  // console.log('App.jsx: role from sessionStorage:', role);
+  // console.log('App.jsx: isAuthenticated:', isAuthenticated);
 
   return (
     <Router>
@@ -31,7 +30,6 @@ function App() {
           path="/login" element={<Login />} />
 
         <Route
-          // path="/applications"
           path="/applications"
           element={
             role === 'user'
@@ -40,13 +38,11 @@ function App() {
         />
 
         <Route
-          // path="/pingfederate/*"
           path = "/services"
           element={isAuthenticated ? <Services /> : <Navigate to="/login" />}
         />
 
         <Route
-          // path="/pingfederate/*"
           path = "/chatpage"
           element={isAuthenticated ? <ChatPage /> : <Navigate to="/login" />}
         />

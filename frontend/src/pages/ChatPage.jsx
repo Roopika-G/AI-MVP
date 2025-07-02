@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import ReactMarkdown from 'react-markdown';
 import VoiceToText from '../components/voicetotext';
+import Avatar from '../components/avatar'; // Import Avatar component
 import './ChatPage.css';
 import Topbar from '../components/top_bar';
 import Sidebar from '../components/sidebar';
@@ -12,6 +13,8 @@ function ChatPage() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isAvatarActive, setIsAvatarActive] = useState(true); // Control avatar session
+  const [avatarTextToSpeak, setAvatarTextToSpeak] = useState(''); // Text for avatar to speak
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();  
 
@@ -52,27 +55,77 @@ function ChatPage() {
       }
 
       const result = await response.json();
+      const botResponse = result.response || 'Sorry, I couldn\'t generate a response.';
       
       // Add bot response to chat
       setMessages(prev => [...prev, { 
         type: 'bot', 
-        text: result.response || 'Sorry, I couldn\'t generate a response.' 
+        text: botResponse 
       }]);
+
+      // Send the text to the avatar to speak - prepare it for speech
+      setAvatarTextToSpeak(prepareTextForSpeech(botResponse));
 
     } catch (error) {
       console.error('Chat error:', error);
+      const errorMessage = 'Sorry, I encountered an error while processing your question. Please try again.';
+      
       setMessages(prev => [...prev, { 
         type: 'bot', 
-        text: 'Sorry, I encountered an error while processing your question. Please try again.' 
+        text: errorMessage 
       }]);
+      
+      // Send the error message to the avatar to speak
+      setAvatarTextToSpeak(prepareTextForSpeech(errorMessage));
     } finally {
       setIsLoading(false);
     }
   };
 
+  // Function to prepare text for speech
+  const prepareTextForSpeech = (text) => {
+    // Remove code blocks that aren't suitable for speech
+    let speechText = text.replace(/```[\s\S]*?```/g, 'I\'ve included some code in my response. Please check the chat for details.');
+    
+    // Remove markdown formatting that isn't suitable for speech
+    speechText = speechText.replace(/\*\*(.*?)\*\*/g, '$1'); // Bold
+    speechText = speechText.replace(/\*(.*?)\*/g, '$1');     // Italic
+    speechText = speechText.replace(/\[(.*?)\]\(.*?\)/g, '$1'); // Links
+    
+    // Convert bullet points to spoken sentences
+    speechText = speechText.replace(/- (.*?)(?:\n|$)/g, '$1. ');
+    
+    // Limit length to avoid very long speeches
+    if (speechText.length > 500) {
+      speechText = speechText.substring(0, 500) + ". I've provided more details in the chat.";
+    }
+    
+    return speechText;
+  };
+
+  // Effect to auto-scroll messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+  
+  // Effect to manage avatar session lifecycle
+  useEffect(() => {
+    console.log('ChatPage: Activating avatar...');
+    setIsAvatarActive(true);
+    
+    // No need to set welcome message here - the Avatar component now handles this internally
+    // once the video stream is ready, which is much more reliable
+    
+    return () => {
+      console.log('ChatPage: Unmounting - deactivating avatar...');
+      setIsAvatarActive(false);
+      
+      // Log after a short delay to confirm state change propagation
+      setTimeout(() => {
+        console.log('ChatPage: Avatar deactivation complete, session should be closing...');
+      }, 100);
+    };
+  }, []);
 
   return (
     <div className="chat-page">
@@ -80,11 +133,14 @@ function ChatPage() {
       <Sidebar />
     <div className="chat-container">
       <div className="chat-left" >
-        <div className="avatar-full-rectangle" style={{ background: 'linear-gradient(to right, #2196f3, #4caf50)' }}> 
+        <div className="avatar-full-rectangle">
+          <Avatar 
+            isActive={isAvatarActive}
+            textToSpeak={avatarTextToSpeak}
+          />
         </div>
         <div className="chat-icon-buttons">
           <VoiceToText onTranscript={text => setInputValue(text)}/>
-        
         </div>
       </div>
 
