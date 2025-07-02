@@ -31,8 +31,8 @@ function TTS() {
 };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", rowGap: "1rem", color: 'black' }}>
-      <button onClick={() => navigate('/services')} style={{ alignSelf: 'flex-start' }}>
+    <div style={{ marginTop: '5%', display: "flex", flexDirection: "column", justifyContent: 'center', alignItems: 'center', rowGap: "1rem", color: 'black' }}>
+      <button onClick={() => navigate('/services')} >
         Back to Applications
       </button>
       <Text />

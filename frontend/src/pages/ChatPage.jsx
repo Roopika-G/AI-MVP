@@ -13,12 +13,16 @@ function ChatPage() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const transcriptTimeoutRef = useRef(null); // Reference to store timeout ID
+  const isTranscriptRef = useRef(false); // Track if input is from transcript
   const [isAvatarActive, setIsAvatarActive] = useState(true); // Control avatar session
   const [avatarTextToSpeak, setAvatarTextToSpeak] = useState(''); // Text for avatar to speak
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();  
 
   const handleSendMessage = async () => {
+
+    
     if (!inputValue.trim() || isLoading) return;
 
     const userMessage = inputValue.trim();
@@ -82,6 +86,90 @@ function ChatPage() {
     }
   };
 
+  // Function specifically for handling voice transcript auto-send
+  const handleVoiceTranscript = (text) => {
+    // First set the input value
+    setInputValue(text);
+    
+    // Then set a direct timeout to send the message after 2 seconds
+    if (text && text.trim()) {
+      // Clear any existing timeout first
+      if (transcriptTimeoutRef.current) {
+        clearTimeout(transcriptTimeoutRef.current);
+      }
+      
+      console.log("Voice transcript received, will auto-send in 2 seconds:", text);
+      
+      // Store the text for later use in the timeout
+      const transcriptText = text.trim();
+      
+      // Create new timeout to send the message
+      transcriptTimeoutRef.current = setTimeout(() => {
+        console.log("Auto-sending voice transcript message:", transcriptText);
+        
+        // Explicitly set the messages before sending
+        const userMessage = transcriptText;
+        setInputValue('');
+        setIsLoading(true);
+
+        // Add user message to chat
+        const newMessages = [...messages, { type: 'user', text: userMessage }];
+        setMessages(newMessages);
+        
+        // Make the API call directly here instead of using handleSendMessage
+        fetch('http://localhost:8000/Agentchat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            question: userMessage,
+            history: newMessages
+              .slice(1)
+              .map(msg => ({
+                question: msg.type === 'user' ? msg.text : '',
+                answer: msg.type === 'bot' ? msg.text : ''
+              }))
+              .filter(exchange => exchange.question || exchange.answer)
+          })
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(result => {
+          const botResponse = result.response || 'Sorry, I couldn\'t generate a response.';
+          
+          // Add bot response to chat
+          setMessages(prev => [...prev, { 
+            type: 'bot', 
+            text: botResponse 
+          }]);
+          
+          // Send the text to the avatar to speak
+          setAvatarTextToSpeak(prepareTextForSpeech(botResponse));
+        })
+        .catch(error => {
+          console.error('Chat error:', error);
+          const errorMessage = 'Sorry, I encountered an error while processing your question. Please try again.';
+          
+          setMessages(prev => [...prev, { 
+            type: 'bot', 
+            text: errorMessage 
+          }]);
+          
+          setAvatarTextToSpeak(prepareTextForSpeech(errorMessage));
+        })
+        .finally(() => {
+          setIsLoading(false);
+          transcriptTimeoutRef.current = null;
+        });
+      }, 2000);
+    }
+  };
+
   // Function to prepare text for speech
   const prepareTextForSpeech = (text) => {
     // Remove code blocks that aren't suitable for speech
@@ -108,16 +196,28 @@ function ChatPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
   
+  // Effect to clear timeout on component unmount
+  useEffect(() => {
+    return () => {
+      if (transcriptTimeoutRef.current) {
+        clearTimeout(transcriptTimeoutRef.current);
+      }
+    };
+  }, []);
+  
   // Effect to manage avatar session lifecycle
   useEffect(() => {
     console.log('ChatPage: Activating avatar...');
     setIsAvatarActive(true);
     
-    // No need to set welcome message here - the Avatar component now handles this internally
-    // once the video stream is ready, which is much more reliable
+    // Add a slight delay before speaking welcome message to allow avatar to initialize
+    const timer = setTimeout(() => {
+      setAvatarTextToSpeak("Hi there! I'm your AI Copilot. How can I assist you today?");
+    }, 2000);
     
     return () => {
       console.log('ChatPage: Unmounting - deactivating avatar...');
+      clearTimeout(timer);
       setIsAvatarActive(false);
       
       // Log after a short delay to confirm state change propagation
@@ -140,7 +240,7 @@ function ChatPage() {
           />
         </div>
         <div className="chat-icon-buttons">
-          <VoiceToText onTranscript={text => setInputValue(text)}/>
+          <VoiceToText onTranscript={handleVoiceTranscript}/>
         </div>
       </div>
 
@@ -188,8 +288,29 @@ function ChatPage() {
           <input
             type="text"
             value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+            onChange={(e) => {
+              // If user manually types, cancel any pending auto-send
+              if (transcriptTimeoutRef.current) {
+                console.log("User typing detected, canceling auto-send");
+                clearTimeout(transcriptTimeoutRef.current);
+                transcriptTimeoutRef.current = null;
+              }
+              
+              // Update the input value
+              setInputValue(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              // Also clear timeout on any key press
+              if (transcriptTimeoutRef.current) {
+                clearTimeout(transcriptTimeoutRef.current);
+                transcriptTimeoutRef.current = null;
+              }
+              
+              // Send message on Enter key
+              if (e.key === 'Enter') {
+                handleSendMessage();
+              }
+            }}
             placeholder="Type your message..."
             disabled={isLoading}
           />

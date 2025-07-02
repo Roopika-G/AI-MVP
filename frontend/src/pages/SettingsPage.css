@@ -40,7 +40,7 @@
   gap: 0.5rem;  
   margin-bottom: 1rem;
   text-align: center;
-  border-bottom: 2px solid #946cba;
+  border-bottom: 2px solid #1de9b6;
   padding-bottom: 0.5rem;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .settings-upload-panel form > div:hover {
-  border-color: #946cba;
+  border-color: #1de9b6;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(148, 108, 186, 0.15);
 }
@@ -89,7 +89,7 @@
 
 .upload-status.success {
   background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-  color: #155724;
+  color: #1d6452;
   border: 1px solid #c3e6cb;
   box-shadow: 0 2px 8px rgba(21, 87, 36, 0.1);
 }
@@ -206,7 +206,7 @@
 
 .settings-upload-panel input[type="text"]:focus {
   outline: none;
-  border-color: #946cba;
+  border-color: #1de9b6;
   box-shadow: 0 0 0 3px rgba(148, 108, 186, 0.1);
   transform: scale(1.01);
 }
@@ -225,12 +225,12 @@
 }
 
 .settings-upload-panel input[type="file"]:hover {
-  border-color: #946cba;
+  border-color: #1de9b6;
   background: #f8fafc;
 }
 
 .settings-upload-panel input[type="file"]::file-selector-button {
-  background: linear-gradient(145deg, #946cba, #8b5ba5);
+  background: linear-gradient(145deg, #1de9b6, #469783);
   color: white;
   border: none;
   padding: 0.4rem 0.8rem;
@@ -244,14 +244,14 @@
 }
 
 .settings-upload-panel input[type="file"]::file-selector-button:hover {
-  background: linear-gradient(145deg, #8b5ba5, #7a4e94);
+  background: linear-gradient(145deg, #1de9b6, #469783);
   transform: translateY(-1px);
 }
 
 .settings-upload-panel button {
   width: 100%;
   padding: 0.6rem 1rem;
-  background: linear-gradient(145deg, #946cba, #8b5ba5);
+  background: linear-gradient(145deg, #1de9b6, #469783);
   color: white;
   border: none;
   border-radius: 8px;
@@ -265,7 +265,7 @@
 }
 
 .settings-upload-panel button:hover {
-  background: linear-gradient(145deg, #8b5ba5, #7a4e94);
+  background: linear-gradient(145deg, #1de9b6, #469783);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(148, 108, 186, 0.3);
 }
@@ -291,7 +291,7 @@
 
 /* File selection label styling */
 .settings-upload-panel label[for$="-upload"]:hover {
-  border-color: #946cba;
+  border-color: #1de9b6;
   background: #f8fafc;
 }
 
@@ -312,7 +312,7 @@
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #946cba;
+  border-bottom: 2px solid #1de9b6;
 }
 
 .chat-header h3 {
@@ -358,7 +358,7 @@
   align-self: flex-start;
   max-width: 80%;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  border-left: 4px solid #946cba;
+  border-left: 4px solid #1de9b6;
 }
 
 /* Markdown styling within chat messages */
@@ -413,7 +413,7 @@
 }
 
 .chat-message.bot blockquote {
-  border-left: 3px solid #946cba;
+  border-left: 3px solid #1de9b6;
   padding-left: 1rem;
   margin: 0.5rem 0;
   font-style: italic;
@@ -421,14 +421,14 @@
 }
 
 .chat-message.user {
-  background: linear-gradient(145deg, #dbeafe, #bfdbfe);
+  background: linear-gradient(145deg, #c9f0ef, #a9f5f4);
   border-radius: 12px 12px 4px 12px;
   padding: 1rem 1.25rem;
   margin-bottom: 0.75rem;
   align-self: flex-end;
   max-width: 80%;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  border-right: 4px solid #3b82f6;
+  border-right: 4px solid #19f2ef;
 }
 
 .chat-message.loading {
@@ -446,7 +446,7 @@
 .typing-indicator span {
   height: 6px;
   width: 6px;
-  background: #946cba;
+  background: #1de9b6;
   border-radius: 50%;
   display: inline-block;
   margin-right: 2px;
@@ -489,12 +489,16 @@
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+  align-items: center;
+  justify-content: center;
 }
 
 .chat-input-form button:disabled:hover {
   background: linear-gradient(145deg, #d1d5db, #9ca3af);
   transform: none;
   box-shadow: none;
+  align-items: center;
+  justify-content: center;
 }
 
 .chat-input-form {
@@ -519,7 +523,7 @@
 
 .chat-input-form input:focus {
   outline: none;
-  border-color: #946cba;
+  border-color: #1de9b6;
   box-shadow: 0 0 0 3px rgba(148, 108, 186, 0.1);
 }
 
@@ -527,19 +531,24 @@
   padding: 0.875rem 1.5rem;
   border-radius: 8px;
   border: none;
-  background: linear-gradient(145deg, #946cba, #8b5ba5);
+  background: linear-gradient(145deg, #1de9b6, #469783);
   color: #fff;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .chat-input-form button:hover {
-  background: linear-gradient(145deg, #8b5ba5, #7a4e94);
+  background: linear-gradient(145deg, #1de9b6, #469783);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(148, 108, 186, 0.3);
+  align-items: center;
+  justify-content: center;
 }
 
 /* Responsive Design */
@@ -572,10 +581,11 @@
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-  background: #946cba;
+  background: #23caa0;
   border-radius: 3px;
 }
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
-  background: #8b5ba5;
+  background: #419782;
+  transition: 0.3s;
 }
