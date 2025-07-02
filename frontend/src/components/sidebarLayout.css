@@ -1,6 +1,6 @@
 .sidebar {
   width: fit-content; /* Dynamically adjust width */
-  background: linear-gradient(180deg, #6ea3e7 0%, #946cba 100%);
+  background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -12,31 +12,40 @@
   position: fixed;
   top: 64px; /* Align with the top bar */
   left: 0;
-  height: calc(100vh - 64px);
+  height: 100vh;
   z-index: 900;
+  border-right: 2px solid #1de9b6
 }
 
-
 .sidebar-item{
-  display: flex;
   align-items: center;
-  padding: 6% 9%;
+  padding: 7% 10%;
   margin: 9% 0;
-  border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
   font-size: 1.2em;
-  transition: background 0.2s;
   width: 180px;
-}
-
-span{
-  color: snow;
+  display: block;
+  border-radius: 8px;
 }
 
 .sidebar-item.active, .sidebar-item:hover {
-  background: rgba(255,255,255,0.18);
+  background-color: #1de9b6;
+  color: #00423c;
+  transition: 0.5s
 }
+
+.sidebar-item span{
+  color: #e0f7fa;
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+.sidebar-item span:hover {
+  color: #064640;
+  text-decoration: dashed ;
+}
+
 
 /* Ensure the sidebar width adjusts dynamically based on the top bar */
 @media (max-width: 768px) {
@@ -44,7 +53,7 @@ span{
     width: fit-content; /* Dynamically adjust width */
     padding-top: 4%; /* Adjust padding */
     top: 56px; /* Adjust alignment with smaller top bar */
-    height: calc(100vh - 56px); /* Fix height alignment */
+    height: calc(100vh - 46px); /* Fix height alignment */
   }
 
   .sidebar-item {
@@ -59,7 +68,7 @@ span{
     width: fit-content; /* Dynamically adjust width */
     padding-top: 3%; /* Adjust padding */
     top: 48px; /* Adjust alignment with smaller top bar */
-    height: calc(100vh - 48px); /* Fix height alignment */
+    height: calc(100vh - 38px); /* Fix height alignment */
   }
 
   .sidebar-item {
@@ -73,6 +82,6 @@ span{
   .sidebar {
     width: fit-content; /* Dynamically adjust width */
     top: 64px; /* Ensure alignment with top bar */
-    height: calc(100vh - 64px); /* Fix height alignment */
+    height: calc(100vh - 54px); /* Fix height alignment */
   }
 }

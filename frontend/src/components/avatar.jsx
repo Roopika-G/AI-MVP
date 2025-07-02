@@ -355,11 +355,12 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
             color: 'white',
             padding: '20px',
             textAlign: 'center',
-            background: 'linear-gradient(135deg, #4568dc, #b06ab3)',
+            // background: 'linear-gradient(135deg, #4568dc, #b06ab3)',
+            background: 'linear-gradient(-55deg, #0f2027, #203a43, #2c5364)',
             borderRadius: '8px'
           }}>
             <div style={{ 
-              backgroundColor: '#946cba', 
+              backgroundColor: '#1de9b6', 
               borderRadius: '50%', 
               width: '100px', 
               height: '100px',
@@ -371,8 +372,8 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
             }}>
               AI
             </div>
-            <h3 style={{ marginBottom: '10px' }}>AI Copilot</h3>
-            <p style={{ marginBottom: '15px', opacity: 0.8, fontSize: '14px' }}>
+            <h3 style={{ marginBottom: '10px', color:'snow'}}>AI Copilot</h3>
+            <p style={{ marginBottom: '15px', opacity: 0.8, fontSize: '14px', color:'snow' }}>
               Video avatar is currently unavailable. <br />
               Please chat with the copilot for any assistance.
             </p>
@@ -432,6 +433,7 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
       }
 
       // Create request body with required parameters
+      // const requestBody = { quality, avatar_name, activity_idle_timeout: 10 };
       const requestBody = { quality, avatar_name };
       const response = await fetch(`${heygen_API.serverUrl}/v1/streaming.new`, {
         method: 'POST',

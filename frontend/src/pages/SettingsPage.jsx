@@ -313,7 +313,7 @@ return (
               }}>
                 {selectedPdfFile ? selectedPdfFile.name : 'Choose PDF file...'}
               </label>
-              <button type="button" onClick={handlePdfUpload} disabled={!selectedPdfFile}>
+              <button type="button" title="First choose file to upload" onClick={handlePdfUpload} disabled={!selectedPdfFile}>
                 Upload PDF
               </button>
             </div>
@@ -337,7 +337,7 @@ return (
               }}>
                 {selectedDocxFile ? selectedDocxFile.name : 'Choose DOCX file...'}
               </label>
-              <button type="button" onClick={handleDocxUpload} disabled={!selectedDocxFile}>
+              <button type="button" title="First choose file to upload" onClick={handleDocxUpload} disabled={!selectedDocxFile}>
                 Upload DOCX
               </button>          </div>
             <div>
@@ -360,7 +360,7 @@ return (
               }}>
                 {selectedPptFile ? selectedPptFile.name : 'Choose PPT file...'}
               </label>
-              <button type="button" onClick={handlePptUpload} disabled={!selectedPptFile}>
+              <button type="button" title="First choose file to upload" onClick={handlePptUpload} disabled={!selectedPptFile}>
                 Upload PPT
               </button>
             </div>

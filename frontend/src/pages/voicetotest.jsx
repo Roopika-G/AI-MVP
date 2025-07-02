@@ -132,7 +132,7 @@ const VoiceToTest = ({ onTranscript }) => {
   };
   const navigate = useNavigate();  
   return (
-    <div style={{ color: 'black', flexDirection: 'column' }} >
+    <div style={{ color: 'black', flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
       <div>
         <button  onClick={() => navigate('/services')}
         >
