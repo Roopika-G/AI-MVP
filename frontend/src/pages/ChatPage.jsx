@@ -113,14 +113,11 @@ function ChatPage() {
     console.log('ChatPage: Activating avatar...');
     setIsAvatarActive(true);
     
-    // Add a slight delay before speaking welcome message to allow avatar to initialize
-    const timer = setTimeout(() => {
-      setAvatarTextToSpeak("Hi there! I'm your AI Copilot. How can I assist you today?");
-    }, 2000);
+    // No need to set welcome message here - the Avatar component now handles this internally
+    // once the video stream is ready, which is much more reliable
     
     return () => {
       console.log('ChatPage: Unmounting - deactivating avatar...');
-      clearTimeout(timer);
       setIsAvatarActive(false);
       
       // Log after a short delay to confirm state change propagation

@@ -20,12 +20,18 @@ print(f"Loading .env file from: {env_path}")
 print(f"File exists: {os.path.exists(env_path)}")
 load_dotenv(dotenv_path=env_path)
 OPENAI_TOKEN = os.getenv('OPENAI_API_KEY')
-
+HEYGEN_API_KEY = os.getenv('HEYGEN_API_KEY')
+HEYGEN_SERVER_URL = os.getenv('HEYGEN_SERVER_URL', 'https://api.heygen.com')  # Default URL if not set
 # Set the environment variable explicitly for child processes
 if OPENAI_TOKEN:
-    os.environ['OPENAI_API_KEY'] = OPENAI_TOKEN
+    print("OPENAI_API_KEY found in .env file!")
 else:
     print("WARNING: OPENAI_API_KEY not found in .env file!")
+
+if HEYGEN_API_KEY:
+    print("HEYGEN_API_KEY found in .env file!")
+else:
+    print("WARNING: HEYGEN_API_KEY not found in .env file!")
 
 from ingestion import process_pdf, process_docx, process_ppt, process_website
 from chatbot import get_chatbot_response
@@ -138,63 +144,6 @@ async def save_recording(
         f.write(transcript)
 
     return {"success": True, "recording_number": next_num}
-
-# -------------------------------------------------------------------------------------------------------------
-# api for text to speech testing and AI avatar text
-@app.get("/get-avatar-text")
-async def get_avatar_text():
-    # Dynamic text that can be customized based on business logic
-    texts = [
-        "Welcome to Vega AI! I'm your intelligent assistant ready to help you navigate through our advanced technology solutions.",
-        "Hello! I'm here to assist you with PingFederate configurations, identity management, and federated authentication setup.",
-        "Greetings! I can help you understand OAUTH flows, SAML configurations, and modern authentication protocols.",
-        "Hi there! Let me guide you through our comprehensive identity and access management solutions."
-    ]
-    
-    import random
-    selected_text = random.choice(texts)
-    
-    return {
-        "text": selected_text,
-        "timestamp": str(datetime.now()),
-        "avatar_mode": "repeat",
-        "language": "en"
-    }
-
-# -------------------------------------------------------------------------------------------------------------
-# api for HeyGen access token generation
-@app.post("/api/get-heygen-token")
-async def get_heygen_token():
-    """Generate HeyGen access token for avatar sessions"""
-    try:
-        # Get HeyGen API key from environment
-        heygen_api_key = os.getenv('HEYGEN_API_KEY')
-        
-        if not heygen_api_key:
-            raise HTTPException(status_code=500, detail="HeyGen API key not configured")
-        
-        # HeyGen API endpoint for generating access tokens
-        heygen_url = "https://api.heygen.com/v1/streaming.create_token"
-        
-        headers = {
-            "X-Api-Key": heygen_api_key,
-            "Content-Type": "application/json"
-        }
-        
-        # Make request to HeyGen API
-        import requests
-        response = requests.post(heygen_url, headers=headers)
-        
-        if response.status_code == 200:
-            token_data = response.json()
-            return {"token": token_data.get("data", {}).get("token", "")}
-        else:
-            print(f"HeyGen API error: {response.status_code} - {response.text}")
-            raise HTTPException(status_code=500, detail="Failed to generate HeyGen token")
-            
-    except Exception as e:
-        print(f"Error generating HeyGen token: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Token generation failed: {str(e)}")
 
 # -------------------------------------------------------------------------------------------------------------
 # api to handle file upload (pdf type) for RAG training and vector storing
@@ -322,3 +271,9 @@ async def Agentchat(request: ChatRequest):
     return {"response": response}
     # except Exception as e:
     #    return {"response": f"Error processing query: {str(e)}", "status": "error"}
+
+# -------------------------------------------------------------------------------------------------------------
+# Get Heygen API key from env
+@app.get("/heygenAPI")
+async def get_heygen_api_key():
+    return {"apiKey": HEYGEN_API_KEY, "url": HEYGEN_SERVER_URL}
