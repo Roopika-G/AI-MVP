@@ -45,5 +45,27 @@
     "filename": "02-Intro_to_Federation.pptx",
     "file_hash": "d8d219c3f63f20f16814957ace51db76",
     "content_hash": "1ea8062960b55edf0ebbaef8ddf7f883"
+  },
+  "e724526e-3824-4d96-ad5a-eeb89bac744c": {
+    "source": "https://docs.pingidentity.com/pingone/release_notes/index.html",
+    "type": "website",
+    "processed_at": "be79bd1e-c651-42eb-9f5a-95f2e835adcb",
+    "filename": null,
+    "content_hash": "d980abd2ef9689c120dd2716089b3127"
+  },
+  "74d4015c-47eb-44eb-b911-0a57a2e5d661": {
+    "source": "C:\\Users\\meswe\\Desktop\\EduServIT\\vega_ai\\AI-MVP\\agenbotc\\uploads\\jamfcloudSAASSSO.docx",
+    "type": "docx",
+    "processed_at": "df91f928-16d2-48f0-bdbe-0bba9af25e63",
+    "filename": "jamfcloudSAASSSO.docx",
+    "file_hash": "ea80c8a3641675c0ec98ef4b9429443b",
+    "content_hash": "7ea3ed25ce42a5ec423e557aa1d95b96"
+  },
+  "6d25cfae-c3a0-4a5c-b407-69cda6e78596": {
+    "source": "https://docs.pingidentity.com/pingfederate/12.3/introduction_to_pingfederate/pf_intro_to_pf.html",
+    "type": "website",
+    "processed_at": "e1ece674-efa0-4c80-8abc-0a30ed457408",
+    "filename": null,
+    "content_hash": "83cd181917aace55c1e198149caa91b2"
   }
 }

@@ -2,6 +2,7 @@ import warnings
 import sys
 import os
 import subprocess
+from datetime import datetime
 from dotenv import load_dotenv
 
 agenbotc_dir = (os.path.join(os.path.dirname(__file__),".", "agenbotc"))
@@ -19,12 +20,18 @@ print(f"Loading .env file from: {env_path}")
 print(f"File exists: {os.path.exists(env_path)}")
 load_dotenv(dotenv_path=env_path)
 OPENAI_TOKEN = os.getenv('OPENAI_API_KEY')
-
+HEYGEN_API_KEY = os.getenv('HEYGEN_API_KEY')
+HEYGEN_SERVER_URL = os.getenv('HEYGEN_SERVER_URL', 'https://api.heygen.com')  # Default URL if not set
 # Set the environment variable explicitly for child processes
 if OPENAI_TOKEN:
-    os.environ['OPENAI_API_KEY'] = OPENAI_TOKEN
+    print("OPENAI_API_KEY found in .env file!")
 else:
     print("WARNING: OPENAI_API_KEY not found in .env file!")
+
+if HEYGEN_API_KEY:
+    print("HEYGEN_API_KEY found in .env file!")
+else:
+    print("WARNING: HEYGEN_API_KEY not found in .env file!")
 
 from ingestion import process_pdf, process_docx, process_ppt, process_website
 from chatbot import get_chatbot_response
@@ -137,13 +144,6 @@ async def save_recording(
         f.write(transcript)
 
     return {"success": True, "recording_number": next_num}
-
-# -------------------------------------------------------------------------------------------------------------
-# api for text to speech testing
-@app.get("/get-avatar-text")
-async def get_avatar_text():
-    # You can replace this with any logic or dynamic text
-    return {"text": "Hello! This is the AI avatar speaking from the backend."}
 
 # -------------------------------------------------------------------------------------------------------------
 # api to handle file upload (pdf type) for RAG training and vector storing
@@ -271,3 +271,9 @@ async def Agentchat(request: ChatRequest):
     return {"response": response}
     # except Exception as e:
     #    return {"response": f"Error processing query: {str(e)}", "status": "error"}
+
+# -------------------------------------------------------------------------------------------------------------
+# Get Heygen API key from env
+@app.get("/heygenAPI")
+async def get_heygen_api_key():
+    return {"apiKey": HEYGEN_API_KEY, "url": HEYGEN_SERVER_URL}

@@ -5,23 +5,16 @@
   z-index: 3;
 }
 
-.user-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  margin-right: 16px;
-}
-
 .user-avatar.user-avatar-circle {
-  width: 48px !important;
-  height: 48px !important;
+  width: 44px !important; /* Reduced size */
+  height: 44px !important; /* Reduced size */
   border-radius: 50% !important;
   background: #6ea3e7 !important;
   color: #fff !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  font-size: 1.5em !important;
+  font-size: 1.4em !important; /* Adjusted font size */
   font-weight: bold !important;
   margin-right: 8px !important;
   user-select: none !important;
@@ -29,6 +22,7 @@
   z-index: 9999 !important;
   position: relative !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+  cursor: pointer !important;
 }
 .user-avatar.user-avatar-circle:hover {
   background: #4b7fc9 !important;
@@ -41,6 +35,7 @@
 .username {
   font-weight: bold;
   font-size: 1.1em;
+  color: snow;
 }
 
 
@@ -49,44 +44,50 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 64px;
+  height: 60px; /* Reduced height */
   background: #946cba;
   color: #fff;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center; /*Center the header title*/
   z-index: 1000;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .header-logo {
-  margin-left: 24px;
-  margin-right: 24px;
-  display: flex;
-  align-items: center;
-  height: 64px;
+  position: absolute; /* Ensure it stays aligned to the left */
+  left: 16px; /* Explicitly set left alignment */
+  margin-right: 16px; /* Maintain spacing */
+  height: 60px; /* Consistent height */
+  display: flex; /* Align items within */
+  align-items: center; /* Center items vertically */
 }
 
 .header-logo img {
-  height: 44px;
+  height: 40px;
   width: auto;
   object-fit: contain;
 }
 
 
 .header-app-name {
-  flex: 1;
-  text-align: center;
-  font-size: 1.35em;
+  /* flex: none; Prevent stretching */
+  margin: 0 auto; /* Center the title */
+  text-align: center; /* Explicitly center text */
+  position: absolute; /* Position relative to the top bar */
+  left: 50%; /* Move to the center */
+  transform: translateX(-50%); /* Adjust for centering */
+  font-size: 1.3em; /* Adjusted font size */
   font-weight: 600;
   letter-spacing: 0.5px;
+  color: snow;
 }
 
 .header-user-info {
   position: absolute;
-  right: 32px;
+  right: 24px; /* Adjusted position */
   top: 0;
-  height: 64px;
+  height: 60px;
   display: flex;
   align-items: center;
   z-index: 1100;
@@ -117,4 +118,80 @@
 
 .logout-dropdown:hover {
   background: #f5f5f5;
+}
+
+/* Responsive styles for zoom-ins, zoom-outs, and smaller viewports */
+@media (max-width: 768px) {
+  .top-header {
+    height: 52px; /* Reduced height */
+    font-size: 0.9em; /* Adjusted font size */
+  }
+
+  .header-logo img {
+    height: 32px;
+  }
+
+  .header-app-name {
+    font-size: 1.1em; /* Adjusted font size */
+  }
+
+  .header-user-info {
+    right: 16px;
+  }
+
+  .user-avatar.user-avatar-circle {
+    width: 38px !important; /* Reduced size */
+    height: 38px !important; /* Reduced size */
+    font-size: 1.2em !important; /* Adjusted font size */
+  }
+}
+
+@media (max-width: 480px) {
+  .top-header {
+    height: 44px; /* Reduced height */
+    font-size: 0.8em; /* Adjusted font size */
+  }
+
+  .header-logo img {
+    height: 28px;
+  }
+
+  .header-app-name {
+    font-size: 1em; /* Adjusted font size */
+  }
+
+  .header-user-info {
+    right: 8px;
+  }
+
+  .user-avatar.user-avatar-circle {
+    width: 30px !important; /* Reduced size */
+    height: 30px !important; /* Reduced size */
+    font-size: 1em !important; /* Adjusted font size */
+  }
+}
+
+@media (min-width: 1024px) {
+  .top-header {
+    height: 64px;
+    font-size: 1.1em;
+  }
+
+  .header-logo img {
+    height: 48px;
+  }
+
+  .header-app-name {
+    font-size: 1.3em;
+  }
+
+  .header-user-info {
+    right: 40px;
+  }
+
+  .user-avatar.user-avatar-circle {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 1.3em !important;
+  }
 }

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { BiReset } from "react-icons/bi";
 import { FaMicrophone, FaStop } from "react-icons/fa";
-import '../ChatPage.css';
+import '../pages/ChatPage.css';
 
 const VoiceToText = ({ onTranscript }) => {
   const [recording, setRecording] = useState(false);
@@ -54,7 +54,7 @@ const VoiceToText = ({ onTranscript }) => {
   };
 
   return (
-    <div style={{ color: 'black' }}>
+    <div style={{ color: 'black', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', padding: '1rem' }}>
       <div className="chat-icon-buttons">
         <button
           className="round-button"
@@ -87,7 +87,7 @@ const VoiceToText = ({ onTranscript }) => {
       {error && (
         <div style={{ color: "red", marginTop: 10 }}>{error}</div>
       )}
-      <p>Transcript: {transcript}</p>
+      {/* <p>Transcript: {transcript}</p> */}
     </div>
   );
 };
