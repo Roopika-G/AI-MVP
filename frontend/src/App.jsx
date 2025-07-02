@@ -31,10 +31,7 @@ function App() {
 
         <Route
           path="/applications"
-          element={
-            role === 'user'
-              ? <HomePage />
-              : <Navigate to={role === 'admin' ? '/settings' : '/login'} />}
+          element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />}
         />
 
         <Route

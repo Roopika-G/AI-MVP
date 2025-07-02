@@ -62,7 +62,7 @@
   height: 48px;
   border-radius: 50%;
   border: none;
-  background-color: #6366f1;
+  background-color: #1de9b6;
   color: white;
   font-size: 1.2rem;
   cursor: pointer;
@@ -74,7 +74,7 @@
 }
 
 .round-button:hover {
-  background-color: #4f46e5;
+  background-color: #9aedd9;
 }
 
 /* RIGHT PANEL */

@@ -42,7 +42,7 @@ function Topbar() {
   return (
     <div className="top-header">
       <div className="header-logo">
-        <img src="/Vega Logo.png" alt="Vega Logo" />
+        <img src="/vegateal.png" alt="Vega Logo" />
       </div>
       <div className="header-app-name">IAM-Copilot</div> 
       <div className="header-user-info">

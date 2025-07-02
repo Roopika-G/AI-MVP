@@ -10,19 +10,24 @@ function Sidebar() {
         return (
           <aside className="sidebar">
           <nav>
-            <div className="sidebar-item" style={{ cursor: 'not-allowed', opacity: 0.6 }}>
+            {/* <div className="sidebar-item" style={{ cursor: 'not-allowed', opacity: 0.6 }}>*/}
+            <div className="sidebar-item" onClick={() => navigate('/applications')} style={{ cursor: 'pointer' }}>
               <span>Applications</span>
             </div>
-            <div className="sidebar-item" style={{ cursor: 'not-allowed', opacity: 0.6 }}>
+            {/* <div className="sidebar-item" style={{ cursor: 'not-allowed', opacity: 0.6 }}> */}
+            <div className="sidebar-item">
               <span>IAM-GPT</span>
             </div>
-            <div className="sidebar-item active" onClick={() => navigate('/settings')} style={{ cursor: 'pointer' }}>
+            {/* <div className="sidebar-item active" onClick={() => navigate('/settings')} style={{ cursor: 'pointer' }}> */}
+            <div className="sidebar-item" onClick={() => navigate('/settings')} style={{ cursor: 'pointer' }}>
               <span>Settings</span>
             </div>
-            <div className="sidebar-item" style={{ cursor: 'not-allowed', opacity: 0.6 }}>
+            {/* <div className="sidebar-item" style={{ cursor: 'not-allowed', opacity: 0.6 }}> */}
+            <div className="sidebar-item">
               <span>Support</span>
             </div>
-            <div className="sidebar-item" style={{ cursor: 'not-allowed', opacity: 0.6 }}>
+            {/* <div className="sidebar-item" style={{ cursor: 'not-allowed', opacity: 0.6 }}> */}
+            <div className="sidebar-item">
               <span>Privacy</span>
             </div>
           </nav>
