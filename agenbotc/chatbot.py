@@ -114,7 +114,7 @@ def get_chatbot_response(question: str, history: List[Dict] = None):
         
         response = {
             "answer": answer,
-            "sources": sources
+            #"sources": sources
         }
         
         print(f"Chatbot response: {response}")
