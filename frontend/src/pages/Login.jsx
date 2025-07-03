@@ -39,9 +39,14 @@ function Login() {
   };
 
   return (
-    <div className="login-container plain-bg">
+    <div className="login-container">
+      <div className="login-header">
+        <img src="/Vega_Brain.png" alt="Vega Logo" className="login-logo" />
+        <h1 className="login-title">Welcome to Vega.ai</h1>
+      </div>
+
       <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
+        <h2>Your personal<br />AI Assistant</h2>
         <input
           type="text"
           placeholder="Username"
@@ -56,7 +61,10 @@ function Login() {
           onChange={e => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit">
+          {/*Add a subtle animation indicator*/}
+          Login <span className="login-arrow">→</span>
+        </button>
         {error && <div className="error">{error}</div>}
       </form>
     </div>

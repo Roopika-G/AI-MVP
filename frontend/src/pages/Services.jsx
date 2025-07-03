@@ -27,23 +27,23 @@ function ApplicationsPage() {
             </div>
             
             <div className="app-card">
-              <div className="card-title">PingDirectory</div>
-              <img src="/PD-Logo.jpeg" alt="PingDirectory" className="card-img" />
+              <div className="card-title">Google Workspace</div>
+              <img src="/Google_logo.png" alt="Google Workspace" className="card-img" />
             </div>
 
-            <div className="app-card" onClick={() => navigate('/voicetotest')} style={{ cursor: 'pointer' }}>
-              <div className="card-title">VoicetoText Test</div>
-              <img src="/Mic-Logo.jpg" alt="VoicetoText" className="card-img" />
+            <div className="app-card" onClick={() => navigate('/voicetotest')}>
+              <div className="card-title">(VoicetoText Test)</div>
+              <img src="/Salesforce_logo.svg" alt="VoicetoText" className="card-img" />
             </div>
             
-            <div className="app-card" onClick={() => navigate('/tts')} style={{ cursor: 'pointer' }}>
-              <div className="card-title">Text to Speech Test</div>
-              <img src="/TTS-Logo.png" alt="Text to Speech" className="card-img" />
+            <div className="app-card" onClick={() => navigate('/tts')} >
+              <div className="card-title">(Text to Speech Test)</div>
+              <img src="/servicenow.png" alt="Text to Speech" className="card-img" />
             </div> 
             
-            <div className="app-card" onClick={() => navigate('/aiavatar')} style={{ cursor: 'pointer' }}>
+            <div className="app-card" onClick={() => navigate('/aiavatar')}>
               <div className="card-title">AI Avatar Assistant</div>
-              <img src="/Heygen-Logo.png" alt="Heygen" className="card-img" />
+              <img src="/slack.png" alt="Heygen" className="card-img" />
             </div>
 
           </div>

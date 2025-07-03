@@ -127,7 +127,7 @@
 
 .chat-bubble.user {
   align-self: flex-end;
-  background-color: #946cba;
+  background-color: #6fc2ad;
   color: white;
   border-bottom-right-radius: 4px;
 }
@@ -155,7 +155,7 @@
 .typing-indicator span {
   height: 6px;
   width: 6px;
-  background: #6366f1;
+  background: #5fdbbc;
   border-radius: 50%;
   display: inline-block;
   margin-right: 2px;
@@ -282,16 +282,20 @@
 
 .chat-input-area button {
   padding: 10px 18px;
-  background-color: #6366f1;
+  background-color: #1ab68f;
   color: white;
   font-size: 1rem;
   border-radius: 20px;
   border: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .chat-input-area button:hover {
-  background-color: #4f46e5;
+  background-color: #64bda7;
+  transition: 0.3s;
 }
 
 /* Scrollbar Styling */
@@ -302,23 +306,28 @@
 .chat-messages::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 3px;
+  transition: all 0.3s;
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-  background: #6366f1;
+  background: #54c4a8;
   border-radius: 3px;
+  transition: all 0.3s;
 }
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
-  background: #4f46e5;
+  background: #5fdbbc;
+  transition: all 0.3s;
 }
 
 .chat-messages::-webkit-scrollbar {
   width: 6px;
+  transition: all 0.3s;
 }
 .chat-messages::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 3px;
+  transition: all 0.3s;
 }
 .chat-back-header {
   display: flex;
