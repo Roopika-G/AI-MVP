@@ -7,7 +7,7 @@ This project consists of a FastAPI backend and a frontend application. Follow th
 - Python 3.8 or higher
 - Node.js 16 or higher (for frontend)
 - Git
-
+- Add a .env File under agenbotc folder with OPEN_API_KEY & HEYGEN_API_KEY
 ## Backend Setup
 
 1. Clone the repository:
