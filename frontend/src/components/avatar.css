@@ -192,3 +192,132 @@ input:checked + .slider:before {
 .show {
   display: flex;
 }
+
+/* Avatar Video Container */
+.avatar-video-container {
+  width: 100%;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  max-height: 350px;
+}
+
+/* Avatar Controls Panel */
+.avatar-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  margin-top: 8px;
+  background-color: rgba(32, 58, 67, 0.8);
+  border-radius: 8px;
+  width: 100%;
+}
+
+/* Volume Control */
+.avatar-volume-control {
+  display: flex;
+  align-items: center;
+  width: 60%;
+  margin-right: 15px;
+}
+
+.avatar-volume-control span {
+  color: white;
+  font-size: 12px;
+}
+
+.avatar-volume-control .volume-label {
+  margin-right: 6px;
+  min-width: 45px;
+}
+
+.avatar-volume-control .volume-value {
+  margin-left: 6px;
+  width: 30px;
+  text-align: right;
+}
+
+.avatar-volume-control input[type="range"] {
+  flex: 1;
+  height: 5px;
+  background: #1de9b6; /* Solid #1de9b6 color */
+  border-radius: 3px;
+  outline: none;
+  margin-right: 8px;
+}
+
+.avatar-volume-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1de9b6;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* For Firefox */
+.avatar-volume-control input[type="range"]::-moz-range-track {
+  height: 5px;
+  background: #1de9b6;
+  border-radius: 3px;
+}
+
+.avatar-volume-control input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 50%;
+  background: #1de9b6;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Interrupt Button */
+.avatar-interrupt-button {
+  padding: 6px 12px;
+  min-width: 70px;
+  background-color: #1de9b6 !important;
+  color: #000;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.avatar-interrupt-button:hover {
+  background-color: #1de9b6 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+  opacity: 0.9;
+}
+
+.avatar-interrupt-button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.Avatar-component {
+  width: 80%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+/* Override for Avatar Controls */
+.avatar-container .avatar-controls button {
+  background-color: #1de9b6 !important;
+  color: #000 !important;
+}
+
+.avatar-container .avatar-controls button:disabled {
+  background-color: #666 !important;
+}
