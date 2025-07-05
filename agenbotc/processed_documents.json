@@ -67,5 +67,12 @@
     "processed_at": "e1ece674-efa0-4c80-8abc-0a30ed457408",
     "filename": null,
     "content_hash": "83cd181917aace55c1e198149caa91b2"
+  },
+  "97cdb957-d071-4c5e-bc19-8f7dfa7b4939": {
+    "source": "https://docs.pingidentity.com/pingoneaic/latest/release-notes/release-notes.html",
+    "type": "website",
+    "processed_at": "03f57919-26b5-4065-99d3-77b4899b9684",
+    "filename": null,
+    "content_hash": "2c05a369afd89a740cc1413dcad495ca"
   }
 }

@@ -22,7 +22,7 @@ function ApplicationsPage() {
           <div className="cards-row">
             
             <div className="app-card" onClick={() => navigate('/chatpage')} style={{ cursor: 'pointer' }}>
-              <div className="card-title">PingFederate</div>
+              <div className="card-title" >PingFederate</div>
               <img src="/PF-Logo.png" alt="PingFederate" className="card-img" />
             </div>
             
