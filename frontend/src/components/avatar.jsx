@@ -91,6 +91,8 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
   const [initializationFailed, setInitializationFailed] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
   const [isClosingSession, setIsClosingSession] = useState(false);
+  const [volume, setVolume] = useState(1.0); // Default volume at 100%
+  const [isInterrupting, setIsInterrupting] = useState(false); // Track if interruption is in progress
 
   const mediaElementRef = useRef(null);
   const cleanupAttemptedRef = useRef(false);
@@ -330,6 +332,13 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
     };
   }, [renderID]);
 
+  // Effect to handle volume changes
+  useEffect(() => {
+    if (mediaElementRef.current) {
+      mediaElementRef.current.volume = volume;
+    }
+  }, [volume, mediaCanPlay]);
+
   // Prepare UI states
   const isInitializing = !sessionInfo && isActive && !initializationFailed;
   const showFallbackUI = initializationFailed;
@@ -342,7 +351,7 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
   // Fallback UI when avatar can't be initialized
   if (showFallbackUI) {
     return (
-      <div className="Avatar-component" style={{ width: '100%', height: '100%' }}>
+      <div className="Avatar-component">
         <div className="avatar-container">
           <div style={{ 
             position: 'relative',
@@ -351,31 +360,31 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
-            height: '100%',
+            maxHeight: '350px',
+            minHeight: '250px',
             color: 'white',
-            padding: '20px',
+            padding: '15px',
             textAlign: 'center',
-            // background: 'linear-gradient(135deg, #4568dc, #b06ab3)',
             background: 'linear-gradient(-55deg, #0f2027, #203a43, #2c5364)',
             borderRadius: '8px'
           }}>
             <div style={{ 
               backgroundColor: '#1de9b6', 
               borderRadius: '50%', 
-              width: '100px', 
-              height: '100px',
+              width: '70px', 
+              height: '70px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              marginBottom: '15px',
-              fontSize: '40px'
+              marginBottom: '10px',
+              fontSize: '30px'
             }}>
               AI
             </div>
-            <h3 style={{ marginBottom: '10px', color:'snow'}}>AI Copilot</h3>
-            <p style={{ marginBottom: '15px', opacity: 0.8, fontSize: '14px', color:'snow' }}>
-              Video avatar is currently unavailable. <br />
-              Please chat with the copilot for any assistance.
+            <h3 style={{ marginBottom: '8px', color:'snow', fontSize: '16px' }}>AI Copilot</h3>
+            <p style={{ marginBottom: '10px', opacity: 0.8, fontSize: '12px', color:'snow' }}>
+              Video avatar is unavailable. <br />
+              Please chat with the copilot for assistance.
             </p>
           </div>
         </div>
@@ -385,36 +394,68 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
   
   // Very simple avatar UI with video - no frills
   return (
-    <div className="Avatar-component" style={{ width: '80%', height: '100%'}}>
+    <div className="Avatar-component">
       <div className="avatar-container">
-        {/* Loading overlay */}
-        <div className={`avatar-loading ${!isInitializing ? 'hidden' : ''}`}>
-          <div className="avatar-spinner"></div>
-          <div>Initializing Avatar...</div>
-        </div>
-
-        {/* Video element */}
-        <video 
-          key={`video-${renderID}`}
-          ref={mediaElementRef} 
-          style={{ 
-            width: '100%', 
-            height: '100%', 
-            objectFit: 'contain',
-            borderRadius: '8px',
-            backgroundColor: 'transparent',
-            opacity: mediaCanPlay ? 1 : 0
-          }}
-          autoPlay 
-          playsInline
-          muted={false}
-          onCanPlay={() => setMediaCanPlay(true)}
-        />
-        
-        {!mediaCanPlay && !isInitializing && (
-          <div className="avatar-loading">
+        {/* Video container */}
+        <div className="avatar-video-container">
+          {/* Loading overlay */}
+          <div className={`avatar-loading ${!isInitializing ? 'hidden' : ''}`}>
             <div className="avatar-spinner"></div>
-            <div>Connecting to avatar...</div>
+            <div>Initializing Avatar...</div>
+          </div>
+
+          {/* Video element */}
+          <video 
+            key={`video-${renderID}`}
+            ref={mediaElementRef} 
+            style={{ 
+              width: '100%',
+              height: '100%',
+              maxHeight: '350px',
+              objectFit: 'contain',
+              borderRadius: '8px',
+              backgroundColor: 'transparent',
+              opacity: mediaCanPlay ? 1 : 0
+            }}
+            autoPlay 
+            playsInline
+            muted={false}
+            onCanPlay={() => setMediaCanPlay(true)}
+          />
+          
+          {!mediaCanPlay && !isInitializing && (
+            <div className="avatar-loading">
+              <div className="avatar-spinner"></div>
+              <div>Connecting to avatar...</div>
+            </div>
+          )}
+        </div>
+        
+        {/* Controls panel - below the video */}
+        {mediaCanPlay && (
+          <div className="avatar-controls">
+            {/* Volume control */}
+            <div className="avatar-volume-control">
+              <span className="volume-label">Volume:</span>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={volume}
+                onChange={(e) => setVolume(parseFloat(e.target.value))}
+              />
+              <span className="volume-value">{Math.round(volume * 100)}%</span>
+            </div>
+            
+            {/* Interrupt button */}
+            <button
+              className="avatar-interrupt-button"
+              onClick={interruptSpeech}
+              disabled={!sessionInfo?.session_id || isInterrupting || isClosingSession}
+            >
+              {isInterrupting ? '...' : 'Stop'}
+            </button>
           </div>
         )}
       </div>
@@ -604,6 +645,74 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
     } catch (error) {
       // Even with errors, we consider the session closed since there's not much we can do
       return { success: false, error: error.message };
+    }
+  }
+
+  async function interruptSpeech() {
+    if (!sessionInfo?.session_id || isClosingSession) {
+      console.log('Avatar: No active session to interrupt');
+      return;
+    }
+    
+    setIsInterrupting(true);
+    updateStatus('Interrupting avatar...');
+    
+    try {
+      // Ensure API is configured
+      const apiConfigured = await getAPI();
+      if (!apiConfigured) {
+        throw new Error('Failed to configure API');
+      }
+      
+      // Send interrupt command to the API
+      const response = await fetch(`${heygen_API.serverUrl}/v1/streaming.interrupt`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Api-Key': heygen_API.apiKey,
+        },
+        body: JSON.stringify({ session_id: sessionInfo.session_id }),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to interrupt speech: ${response.status}`);
+      }
+      
+      console.log('Avatar: Speech interrupted successfully');
+      updateStatus('Avatar ready');
+    } catch (error) {
+      console.error('Avatar: Error interrupting speech:', error.message);
+      updateStatus('Failed to interrupt speech');
+    } finally {
+      setIsInterrupting(false);
+    }
+  }
+
+  async function listSessions() {
+    try {
+      // Ensure API is configured
+      const apiConfigured = await getAPI();
+      if (!apiConfigured) {
+        throw new Error('Failed to configure API');
+      }
+      
+      const response = await fetch(`${heygen_API.serverUrl}/v1/streaming.list`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Api-Key': heygen_API.apiKey,
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to list sessions: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.data || [];
+    } catch (error) {
+      console.error('Avatar: Error listing sessions:', error.message);
+      return [];
     }
   }
 }
