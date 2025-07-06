@@ -25,6 +25,14 @@
 }
 
 @font-face {
+  font-family: 'ExpansivaBoldItalic';
+  src: url('/fonts/Expansiva bold italic.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'LunarEscape';
   src: url('/fonts/Lunar Escape.otf') format('opentype');
   font-weight: normal;
@@ -37,6 +45,22 @@
   src: url('/fonts/space age.ttf') format('truetype'),
        url('/fonts/space age.otf') format('opentype');
   font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('/fonts/orbitron.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OrbitronBold';
+  src: url('/fonts/orbitron-bold.otf') format('opentype');
+  font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
@@ -225,7 +249,7 @@
   white-space: nowrap;
 }
 .login-form h2:hover span:nth-child(1){
-  transform: translateY(-13px); 
+  transform: translateY(-10px); 
 }
 .login-form h2 span:nth-child(2){
   position: absolute;
@@ -247,14 +271,14 @@
   width: 100%;
   color: #000;
   background: #1de9b6;
-  font-size: 0.8em;
+  font-size: 0.6em;
   font-weight: 500;
   letter-spacing: 0.5em;
   text-align: center;
   padding-left: 15px;
   margin-left: 0;
   transition: 0.5s;
-  font-family: 'LunarEscape', sans-serif;
+  font-family: 'ExpansivaBoldItalic', sans-serif;
   white-space: nowrap;
 }
 .login-form h2:hover span:nth-child(3){

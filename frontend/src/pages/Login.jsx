@@ -82,7 +82,7 @@ function Login() {
         </div>
         <button type="submit" className='submit-button'>
           {/*Add a subtle animation indicator*/}
-          Login <span className="login-arrow">→</span>
+          Enter <span className="login-arrow">→</span>
         </button>
         {error && <div className="error">{error}</div>}
       </form>
