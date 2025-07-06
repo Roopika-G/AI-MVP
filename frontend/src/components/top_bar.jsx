@@ -41,7 +41,7 @@ function Topbar() {
 
   return (
     <div className="top-header">
-      <div className="header-logo">
+      <div className="header-logo" onClick={() => navigate('/applications')} style={{ cursor: 'pointer' }}>
         <img src="/vegateal.png" alt="Vega Logo" />
       </div>
       <div className="header-app-name">IAM-Copilot</div> 
