@@ -1,7 +1,7 @@
-.chat-page{
+.chat-page {
   top: 0;
   left: 0;
-  padding: 0 0 0 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -17,22 +17,19 @@
   width: calc(100vw - 15.7%);
   background-color: white;
   display: flex;
-  padding: 1% 1% 1% 1%;
+  padding: 1%;
 }
 
 /* Fills the sidebar space + stretches */
 .chat-left {
   width: 30rem;
-  /* min-width: fit-content; */
   height: 100%;
-  /* background: linear-gradient(to bottom, #dbeafe, #eef2ff); */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 4% 4% 4% 4%;
+  padding: 4%;
   border-right: 1px solid #ddd;
-  background: 'black';
 }
 
 /* Avatar takes full vertical space available */
@@ -40,12 +37,11 @@
   width: 100%;
   height: 100%;
   max-height: 400px;
-  /* background-color: #cfcfcf; */
   border-radius: 12px;
   margin-bottom: 30px;
+  display: flex;
   justify-content: center;
   align-items: center;
-  display: flex;
 }
 
 /* Circular icon buttons */
@@ -80,7 +76,6 @@
 /* RIGHT PANEL */
 .chat-right {
   width: 60rem;
-  /* min-width: fit-content; */
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -127,7 +122,7 @@
 
 .chat-bubble.user {
   align-self: flex-end;
-  background-color: #946cba;
+  background-color: #6fc2ad;
   color: white;
   border-bottom-right-radius: 4px;
 }
@@ -155,7 +150,7 @@
 .typing-indicator span {
   height: 6px;
   width: 6px;
-  background: #6366f1;
+  background: #5fdbbc;
   border-radius: 50%;
   display: inline-block;
   margin-right: 2px;
@@ -282,16 +277,20 @@
 
 .chat-input-area button {
   padding: 10px 18px;
-  background-color: #6366f1;
+  background-color: #1ab68f;
   color: white;
   font-size: 1rem;
   border-radius: 20px;
   border: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .chat-input-area button:hover {
-  background-color: #4f46e5;
+  background-color: #64bda7;
+  transition: 0.3s;
 }
 
 /* Scrollbar Styling */
@@ -302,23 +301,28 @@
 .chat-messages::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 3px;
+  transition: all 0.3s;
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-  background: #6366f1;
+  background: #54c4a8;
   border-radius: 3px;
+  transition: all 0.3s;
 }
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
-  background: #4f46e5;
+  background: #5fdbbc;
+  transition: all 0.3s;
 }
 
 .chat-messages::-webkit-scrollbar {
   width: 6px;
+  transition: all 0.3s;
 }
 .chat-messages::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 3px;
+  transition: all 0.3s;
 }
 .chat-back-header {
   display: flex;

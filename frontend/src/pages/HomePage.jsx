@@ -23,11 +23,11 @@ function MainLayout() {
             </div> 
             <section className="applications-section">
               <div className="cards-row">
-                <div className="app-card" onClick={() => navigate('/services')}>
+                <div className="app-card" onClick={() => navigate('/services')} style={{ cursor: 'pointer' }}>
                   <div className="card-title">SP Connections</div>
                   <img src="/SP-Connections.png" alt="SP Connections" className="card-img" />
                 </div>
-                <div className="app-card" onClick={() => navigate('/services')}>
+                <div className="app-card" onClick={() => navigate('/services')} style={{ cursor: 'pointer' }}>
                   <div className="card-title">OAuth Clients</div>
                   <img src="/OAUTH.png" alt="OAuth Clients" className="card-img" />
                 </div>

@@ -105,7 +105,7 @@ html, body, #root {
   align-items: center;
   justify-content: center;
   transition: box-shadow 0.2s, transform 0.2s;
-  /* color: black; */
+  border-left: 8px solid #1bad89;
 }
 .app-card:hover {
   box-shadow: 0 4px 16px rgba(0,0,0,0.13);
@@ -114,12 +114,14 @@ html, body, #root {
 .card-title {
   font-size: 1.2em;
   font-weight: 600;
-  margin-bottom: 18px;
+  /* margin-bottom: 18px; */
+  color: white;
 }
 .card-img {
-  width: 140px;
+  width: 200px;
   height: 140px;
   object-fit: contain;
+  /* background-color: #1bad89; */
 }
 
 .main-layout.full-screen {
@@ -144,5 +146,5 @@ html, body, #root {
   vertical-align: middle;
 }
 .back-arrow-btn:hover {
-  color: #6ea3e7;
+  color: #77c5b2;
 } 
