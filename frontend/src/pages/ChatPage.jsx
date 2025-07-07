@@ -239,9 +239,7 @@ function ChatPage() {
             textToSpeak={avatarTextToSpeak}
           />
         </div>
-        <div className="chat-icon-buttons">
-          <VoiceToText onTranscript={handleVoiceTranscript}/>
-        </div>
+        <VoiceToText onTranscript={handleVoiceTranscript}/>
       </div>
 
       <div className="chat-right">

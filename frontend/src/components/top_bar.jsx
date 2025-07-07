@@ -5,8 +5,14 @@ import './top_bar.css'
 function Topbar() {
   const [active, setActive] = useState('Applications');
   const [showDropdown, setShowDropdown] = useState(false);
+  const [logoLoaded, setLogoLoaded] = useState(false);
   const dropdownRef = useRef(null);
   const avatarRef = useRef(null);
+
+  useEffect(() => {
+    // Trigger logo animation after component mounts
+    setLogoLoaded(true);
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -42,7 +48,12 @@ function Topbar() {
   return (
     <div className="top-header">
       <div className="header-logo" onClick={() => navigate('/applications')} style={{ cursor: 'pointer' }}>
-        <img src="/vegateal.png" alt="Vega Logo" />
+        <img 
+          src="/Vega_Neon.png" 
+          alt="Vega Logo" 
+          // className={logoLoaded ? 'flicker-in-1' : ''} 
+          // style={{ visibility: logoLoaded ? 'visible' : 'hidden' }}
+        />
       </div>
       <div className="header-app-name">IAM-Copilot</div> 
       <div className="header-user-info">

@@ -10,7 +10,7 @@
   padding-right: 2%;
   box-shadow: 2px 0 8px rgba(0,0,0,0.03);
   position: fixed;
-  top: 64px; /* Align with the top bar */
+  top: 0px; /* Align with the top bar */
   left: 0;
   height: 100vh;
   z-index: 900;
@@ -18,15 +18,18 @@
 }
 
 .sidebar-item{
+  position: relative;
+  top: 74px;
   align-items: center;
   padding: 7% 10%;
   margin: 9% 0;
   cursor: pointer;
   font-weight: 500;
   font-size: 1.2em;
-  width: 180px;
+  width: 160px;
   display: block;
   border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .sidebar-item.active, .sidebar-item:hover {
@@ -52,8 +55,8 @@
   .sidebar {
     width: fit-content; /* Dynamically adjust width */
     padding-top: 4%; /* Adjust padding */
-    top: 56px; /* Adjust alignment with smaller top bar */
-    height: calc(100vh - 46px); /* Fix height alignment */
+    top: 0px; /* Adjust alignment with smaller top bar */
+    height: 100vh; /* Fix height alignment */
   }
 
   .sidebar-item {
@@ -67,8 +70,8 @@
   .sidebar {
     width: fit-content; /* Dynamically adjust width */
     padding-top: 3%; /* Adjust padding */
-    top: 48px; /* Adjust alignment with smaller top bar */
-    height: calc(100vh - 38px); /* Fix height alignment */
+    top: 0px; /* Adjust alignment with smaller top bar */
+    height: 100vh; /* Fix height alignment */
   }
 
   .sidebar-item {
@@ -81,7 +84,7 @@
 @media (min-width: 1024px) {
   .sidebar {
     width: fit-content; /* Dynamically adjust width */
-    top: 64px; /* Ensure alignment with top bar */
-    height: calc(100vh - 54px); /* Fix height alignment */
+    top: 0px; /* Ensure alignment with top bar */
+    height: 100vh; /* Fix height alignment */
   }
 }

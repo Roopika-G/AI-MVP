@@ -360,7 +360,7 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
             alignItems: 'center',
             justifyContent: 'center',
             width: '100%',
-            maxHeight: '350px',
+            // maxHeight: '350px',
             minHeight: '250px',
             color: 'white',
             padding: '15px',
@@ -411,7 +411,7 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
             style={{ 
               width: '100%',
               height: '100%',
-              maxHeight: '350px',
+              maxHeight: '450px',
               objectFit: 'contain',
               borderRadius: '8px',
               backgroundColor: 'transparent',

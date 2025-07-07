@@ -2,6 +2,7 @@ import warnings
 import sys
 import os
 import subprocess
+import uvicorn
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -82,8 +83,8 @@ def install_requirements():
         print("Continuing with startup - some features may not work properly")
 
 # Install requirements before importing other modules
-# print("Checking and installing required packages...")
-# install_requirements()
+print("Checking and installing required packages...")
+install_requirements()
 
 # Load config
 def load_config():
@@ -277,3 +278,6 @@ async def Agentchat(request: ChatRequest):
 @app.get("/heygenAPI")
 async def get_heygen_api_key():
     return {"apiKey": HEYGEN_API_KEY, "url": HEYGEN_SERVER_URL}
+
+if __name__ == "__main__":
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)

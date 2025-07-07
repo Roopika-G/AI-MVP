@@ -1,70 +1,3 @@
-/* Font imports */
-@font-face {
-  font-family: 'BeautyGlitch';
-  src: url('/fonts/Beauty Glitch Demo.ttf') format('truetype'),
-       url('/fonts/Beauty Glitch Demo.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Expansiva';
-  src: url('/fonts/Expansiva.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'ExpansivaBold';
-  src: url('/fonts/Expansiva bold.otf') format('opentype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'ExpansivaBoldItalic';
-  src: url('/fonts/Expansiva bold italic.otf') format('opentype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'LunarEscape';
-  src: url('/fonts/Lunar Escape.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'SpaceAge';
-  src: url('/fonts/space age.ttf') format('truetype'),
-       url('/fonts/space age.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Orbitron';
-  src: url('/fonts/orbitron.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'OrbitronBold';
-  src: url('/fonts/orbitron-bold.otf') format('opentype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
 .login-container {
   position: fixed;
   top: 0;
@@ -90,11 +23,7 @@
   box-sizing: border-box;
 } 
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50% }
-  50% { background-position: 100% 50% }
-  100% { background-position: 0% 50% }
-}
+/* Animation now defined in index.css */
 
 .login-header {
   height: auto;
@@ -110,16 +39,7 @@
   align-items: center;
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* Animation now defined in index.css */
 
 /* .login-header {
   font-size: 2.5em;
@@ -151,14 +71,7 @@
     typewriter 4s steps(50) 1s 1 normal both, 
     blinkingCursor 500ms steps(50) infinite normal;
 }
-@keyframes typewriter {
-  from { width: 0; }
-  to { width: 24em; }
-}
-@keyframes blinkingCursor{
-  from { border-right-color: #1de9b6; }
-  to { border-right-color: transparent; }
-}
+/* Animations now defined in index.css */
 
 .login-header img {
   width: 130px;
@@ -168,11 +81,7 @@
   animation: pulse 3s infinite ease-in-out;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
+/* Animation now defined in index.css */
 
 .login-form {
   margin-top: 0;
@@ -195,16 +104,7 @@
   position: relative;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* Animation now defined in index.css */
 
 /* Old style of Login form header text */
 /* .login-form h2 {
@@ -349,11 +249,7 @@
   animation: shake 0.5s ease-in-out;
 }
 
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
-}
+/* Animation now defined in index.css */
 
 /* Arrow animation for login button */
 .login-arrow {
@@ -469,11 +365,7 @@
     width: 40px;
   }
   
-  /* Fix for typewriter animation on mobile */
-  @keyframes typewriter {
-    from { width: 0; }
-    to { width: 90%; }
-  }
+  /* Animation now defined in index.css with media query override */
 }
 
 /* Handle orientation changes */

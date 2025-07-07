@@ -269,8 +269,8 @@ return (
     <Topbar />
     <Sidebar />
       <div className="settings-split-container">  
-        <div className="settings-upload-panel">
-          <h3>**Upload Knowledge</h3>        
+        <div className="settings-upload-panel" key="upload-panel">
+          <h3>Impart Knowledge</h3>        
           {uploadStatus && (
             <div className={`upload-status ${uploadStatusType} ${showNotification ? 'show' : 'hide'}`}>
               <span className="status-icon">{getStatusIcon(uploadStatusType)}</span>
@@ -367,9 +367,9 @@ return (
           </form>
         </div>
 
-        <div className="settings-chat-panel">
+        <div className="settings-chat-panel" key="chat-panel">
           <div className="chat-header">
-            <h3>***Knowledge Base Chat</h3>
+            <h3>Vega Insight Chat</h3>
             <button 
               className="clear-chat-btn" 
               onClick={clearChat}

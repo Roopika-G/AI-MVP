@@ -54,8 +54,33 @@ const VoiceToText = ({ onTranscript }) => {
   };
 
   return (
-    <div style={{ color: 'black', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', padding: '1rem' }}>
-      <div className="chat-icon-buttons">
+    <div style={{ 
+        color: 'black', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        padding: '0.5rem', 
+        width: '100%', 
+        marginTop: '5px',
+        maxWidth: '349px', // Match avatar width
+        margin: '5px auto 0'
+      }}>
+      <h3 style={{ 
+        color: '#2d3748', 
+        fontSize: '1.2rem', 
+        fontWeight: '600', 
+        marginBottom: '0.5rem', 
+        textAlign: 'center', 
+        borderBottom: '2px solid #1de9b6', 
+        paddingBottom: '0.4rem', 
+        fontFamily: "'Orbitron', sans-serif", 
+        width: '100%', 
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap'
+      }}>Voice Input</h3>
+      <div className="chat-icon-buttons" style={{ marginTop: '8px', gap: '12px' }}>
         <button
           className="round-button"
           onClick={startListening}
@@ -81,7 +106,12 @@ const VoiceToText = ({ onTranscript }) => {
           <BiReset />
         </button>
       </div>
-      <p>
+      <p style={{ 
+        fontFamily: 'Orbitron, sans-serif', 
+        fontSize: '0.9rem', 
+        margin: '8px 0 0',
+        textAlign: 'center'
+      }}>
         Microphone: {recording ? <span style={{ color: "green" }}>on</span> : <span style={{ color: "gray" }}>off</span>}
       </p>
       {error && (
