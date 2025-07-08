@@ -6,15 +6,15 @@
   height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding-top: 0;
+  justify-content: flex-start;
+  padding-top: 10%;
   margin: 0;
-  color: black;
+  color: #e2e8f0;
   background: 
-    linear-gradient(217deg, #0f2027ee, transparent 70.71%),
-    linear-gradient(127deg, #203a43ee, transparent 70.71%),
-    linear-gradient(336deg, #2c5364ee, transparent 70.71%),
-    linear-gradient(180deg, #1de9b6 0%, #1de9b610 100%);
+    linear-gradient(217deg, #111827ee, transparent 70.71%),
+    linear-gradient(127deg, #1a202cee, transparent 70.71%),
+    linear-gradient(336deg, #2d3748ee, transparent 70.71%),
+    linear-gradient(180deg, #4884c8 0%, #1de9b610 100%);
   flex-direction: column;
   overflow-x: hidden;
   overflow-y: auto; /* Allow scrolling if needed */
@@ -61,7 +61,7 @@
     white-space: nowrap;
     overflow: hidden;
     line-height: 1.5;
-    text-shadow: 0 0 15px rgba(29, 233, 182, 0.4);
+    text-shadow: 0 0 15px #4884c8;
     font-family: 'SpaceAge', sans-serif;
     /* margin-bottom: 20px; */
 }
@@ -85,40 +85,25 @@
 
 .login-form {
   margin-top: 0;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(42, 59, 79, 0.95); /* Dark blue with greyish tone */
   padding: 16px 32px 40px 32px;
   border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
   min-width: 400px; /* Increased min-width */
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #4884c8; /* Blue border */
   transform: translateY(0);
   animation: fadeInUp 1s ease-out forwards;
   animation-delay: 0.3s;
   opacity: 0;
-  border-top: #1de9b6 5px solid;
-  border-bottom: #1de9b6 5px solid;
+  border-top: #4884c8 5px solid; /* Blue border top */
+  border-bottom: #4884c8 5px solid; /* Blue border bottom */
   width: auto; /* Changed from fit-content to auto */
   position: relative;
 }
 
-/* Animation now defined in index.css */
-
-/* Old style of Login form header text */
-/* .login-form h2 {
-  margin-bottom: 24px;
-  text-align: center;
-  background: linear-gradient(to right, #1de9b6, #2c5364);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  font-size: 1.8em;
-  font-weight: 500;
-  line-height: 1.3;
-} */
 /* ------------------------New login form header text --------------------- */
 
 .login-form h2{
@@ -140,7 +125,7 @@
 .login-form h2 span:nth-child(1){
   position: absolute;
   top: 0; left: 0;
-  color: #000;
+  color: #e2e8f0; /* Light grey text */
   transition: 0.5s;
   clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
   overflow: hidden;
@@ -154,7 +139,7 @@
 .login-form h2 span:nth-child(2){
   position: absolute;
   top: 0; left: 0;
-  color: #000;
+  color: #e2e8f0; /* Light grey text */
   transition: 0.5s;
   clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
   overflow: hidden;
@@ -169,8 +154,9 @@
   top: 50%; left: 0;
   transform: translateY(-50%) scaleY(0);
   width: 100%;
-  color: #000;
-  background: #1de9b6;
+  color: #ffffff;
+  background: #4884c8; /* Blue background */
+  border-radius: 8px;
   font-size: 0.6em;
   font-weight: 500;
   letter-spacing: 0.5em;
@@ -190,24 +176,25 @@
 .login-form input {
   margin-bottom: 18px;
   padding: 14px 16px;
-  border: 1px solid rgba(183, 183, 247, 0.5);
+  border: 1px solid #4884c8; /* Blue border */
   border-radius: 10px;
   font-size: 1em;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.03) inset;
+  background: rgba(26, 32, 44, 0.8); /* Dark blue background */
+  color: #e2e8f0; /* Light grey text */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2) inset;
   width: 100%;
   box-sizing: border-box;
 }
 
 .login-form input:focus {
-  border-color: #1de9b6;
+  border-color: #1de9b6; /* Teal accent for focus */
   outline: none;
   box-shadow: 0 0 0 3px rgba(29, 233, 182, 0.2);
 }
 
 .login-form .submit-button {
-  background: radial-gradient(circle, #1de9b6, #1ab99c);
+  background: linear-gradient(135deg, #4884c8, #1de9b6); /* Blue to teal gradient */
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -228,7 +215,7 @@
 }
 
 .login-form .submit-button:hover {
-  background: radial-gradient(circle, #1de9b6, #4b7fc9);
+  background: radial-gradient(circle, #1de9b6, #66b9e3);
   /* transform: translateY(-2px); */
   box-shadow: 0 6px 15px rgba(29, 233, 182, 0.4);
   transition: all 0.5s ease-in-out;

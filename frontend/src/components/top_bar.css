@@ -6,13 +6,14 @@
   height: 60px; /* Reduced height */
   align-items: center;
   z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  background: linear-gradient(0deg, #0f2027, #203a43, #2c5364);
+  box-shadow: 0 2px 8px rgba(72, 132, 200, 0.15);
+  background: linear-gradient(0deg, #2a4a6d, #3a6491, #4884c8);
   color: #ffffff;
   display: flex;
   justify-content: space-between;
   padding: 1% 2%;
-  border-bottom: 2px solid #1de9b6;
+  border-bottom: 2px solid;
+  border-image: radial-gradient(circle, #4884c8, #1de9b6) 1;
 }
 
 .header-logo {
@@ -63,7 +64,7 @@
   width: 44px !important; /* Reduced size */
   height: 44px !important; /* Reduced size */
   border-radius: 50% !important;
-  background: #1de9b6 !important;
+  background: #4884c8 !important;
   color: #fff !important;
   display: flex !important;
   align-items: center !important;
@@ -79,7 +80,7 @@
   cursor: pointer !important;
 }
 .user-avatar.user-avatar-circle:hover {
-  background: #136a54 !important;
+  background: #3a6491 !important;
   border-color: #1de9b6 !important;
   transition: 0.3s !important;
 }
@@ -101,7 +102,7 @@
 .greeting {
   font-family: 'Orbitron', sans-serif;
   font-size: clamp(0.7em, 2vw, 0.95em);
-  color: #ccc3c3;
+  color: rgba(29, 233, 182, 0.7);
   line-height: 1.2;
 }
 .username {
@@ -118,9 +119,9 @@
   right: 0;
   background: #fff;
   color: #333;
-  border: 1px solid #eee;
+  border: 1px solid rgba(72, 132, 200, 0.2);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(72, 132, 200, 0.15);
   padding: 10px 24px;
   cursor: pointer;
   z-index: 10000;
@@ -129,7 +130,8 @@
 }
 
 .logout-dropdown:hover {
-  background: #f5f5f5;
+  background: rgba(29, 233, 182, 0.1);
+  color: #4884c8;
 }
 
 /* Responsive styles for zoom-ins, zoom-outs, and smaller viewports */

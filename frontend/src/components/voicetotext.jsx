@@ -67,19 +67,19 @@ const VoiceToText = ({ onTranscript }) => {
         margin: '5px auto 0'
       }}>
       <h3 style={{ 
-        color: '#2d3748', 
+        color: 'white', 
         fontSize: '1.2rem', 
         fontWeight: '600', 
         marginBottom: '0.5rem', 
         textAlign: 'center', 
-        borderBottom: '2px solid #1de9b6', 
+        borderBottom: '2px solid #4884c8', 
         paddingBottom: '0.4rem', 
         fontFamily: "'Orbitron', sans-serif", 
         width: '100%', 
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap'
-      }}>Voice Input</h3>
+      }}>Talk with Vega</h3>
       <div className="chat-icon-buttons" style={{ marginTop: '8px', gap: '12px' }}>
         <button
           className="round-button"
@@ -110,9 +110,10 @@ const VoiceToText = ({ onTranscript }) => {
         fontFamily: 'Orbitron, sans-serif', 
         fontSize: '0.9rem', 
         margin: '8px 0 0',
-        textAlign: 'center'
+        textAlign: 'center',
+        color: 'white'
       }}>
-        Microphone: {recording ? <span style={{ color: "green" }}>on</span> : <span style={{ color: "gray" }}>off</span>}
+        Microphone: {recording ? <span style={{ color: "lightgreen" }}>on</span> : <span style={{ color: "lightgray" }}>off</span>}
       </p>
       {error && (
         <div style={{ color: "red", marginTop: 10 }}>{error}</div>

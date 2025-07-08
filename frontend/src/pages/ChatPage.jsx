@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import VoiceToText from '../components/voicetotext';
 import Avatar from '../components/avatar'; // Import Avatar component
+import ChatSuggestions from '../components/ChatSuggestions'; // Import ChatSuggestions component
 import './ChatPage.css';
+import '../components/chat-suggestions.css';
 import Topbar from '../components/top_bar';
 import Sidebar from '../components/sidebar';
 
@@ -13,11 +15,15 @@ function ChatPage() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [inputPlaceholder, setInputPlaceholder] = useState('Type your message...'); // Placeholder text that will change
+  const [conversationStarted, setConversationStarted] = useState(false); // Track if the conversation has started
   const transcriptTimeoutRef = useRef(null); // Reference to store timeout ID
   const isTranscriptRef = useRef(false); // Track if input is from transcript
   const [isAvatarActive, setIsAvatarActive] = useState(true); // Control avatar session
   const [avatarTextToSpeak, setAvatarTextToSpeak] = useState(''); // Text for avatar to speak
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
   const navigate = useNavigate();  
 
   const handleSendMessage = async () => {
@@ -28,6 +34,13 @@ function ChatPage() {
     const userMessage = inputValue.trim();
     setInputValue('');
     setIsLoading(true);
+
+    // Mark conversation as started when first message is sent
+    if (!conversationStarted) {
+      setConversationStarted(true);
+      // Reset placeholder to default when conversation starts
+      setInputPlaceholder('Type your message...');
+    }
 
     // Add user message to chat
     const newMessages = [...messages, { type: 'user', text: userMessage }];
@@ -112,6 +125,13 @@ function ChatPage() {
         setInputValue('');
         setIsLoading(true);
 
+        // Mark conversation as started when first voice message is sent
+        if (!conversationStarted) {
+          setConversationStarted(true);
+          // Reset placeholder to default when conversation starts
+          setInputPlaceholder('Type your message...');
+        }
+
         // Add user message to chat
         const newMessages = [...messages, { type: 'user', text: userMessage }];
         setMessages(newMessages);
@@ -195,6 +215,20 @@ function ChatPage() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+  
+  // Handle suggestion selection
+  const handleSelectSuggestion = (suggestion) => {
+    setInputValue(suggestion);
+    setInputPlaceholder('Type your message...'); // Reset placeholder to default
+    setShowSuggestions(false); // Hide dropdown suggestions
+    
+    // Don't mark the conversation as started yet - only when message is sent
+    // This allows the user to still see different suggestions if they don't send the selected one
+    
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
   
   // Effect to clear timeout on component unmount
   useEffect(() => {
@@ -283,35 +317,47 @@ function ChatPage() {
         </div>
 
         <div className="chat-input-area">
-          <input
-            type="text"
-            value={inputValue}
-            onChange={(e) => {
-              // If user manually types, cancel any pending auto-send
-              if (transcriptTimeoutRef.current) {
-                console.log("User typing detected, canceling auto-send");
-                clearTimeout(transcriptTimeoutRef.current);
-                transcriptTimeoutRef.current = null;
-              }
-              
-              // Update the input value
-              setInputValue(e.target.value);
-            }}
-            onKeyDown={(e) => {
-              // Also clear timeout on any key press
-              if (transcriptTimeoutRef.current) {
-                clearTimeout(transcriptTimeoutRef.current);
-                transcriptTimeoutRef.current = null;
-              }
-              
-              // Send message on Enter key
-              if (e.key === 'Enter') {
-                handleSendMessage();
-              }
-            }}
-            placeholder="Type your message..."
-            disabled={isLoading}
-          />
+          <div className="chat-input-wrapper">
+            {/* Only show suggestions if conversation hasn't started */}
+            {!conversationStarted && (
+              <ChatSuggestions
+                onSelectSuggestion={handleSelectSuggestion}
+                showSuggestions={showSuggestions}
+                updatePlaceholder={setInputPlaceholder}
+              />
+            )}
+            <input
+              ref={inputRef}
+              type="text"
+              value={inputValue}
+              onChange={(e) => {
+                // If user manually types, cancel any pending auto-send
+                if (transcriptTimeoutRef.current) {
+                  console.log("User typing detected, canceling auto-send");
+                  clearTimeout(transcriptTimeoutRef.current);
+                  transcriptTimeoutRef.current = null;
+                }
+                
+                // Update the input value
+                setInputValue(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                // Also clear timeout on any key press
+                if (transcriptTimeoutRef.current) {
+                  clearTimeout(transcriptTimeoutRef.current);
+                  transcriptTimeoutRef.current = null;
+                }
+                
+                // Send message on Enter key
+                if (e.key === 'Enter') {
+                  handleSendMessage();
+                }
+              }}
+              onFocus={() => !conversationStarted && setShowSuggestions(true)}
+              placeholder={conversationStarted ? 'Type your message...' : inputPlaceholder}
+              disabled={isLoading}
+            />
+          </div>
           <button onClick={handleSendMessage} disabled={isLoading || !inputValue.trim()}>
             {isLoading ? 'Sending...' : 'Send'}
           </button>

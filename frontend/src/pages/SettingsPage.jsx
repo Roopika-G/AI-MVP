@@ -304,7 +304,7 @@ return (
               <label htmlFor="pdf-upload" style={{ 
                 display: 'block',
                 padding: '0.875rem 1rem',
-                border: '2px dashed #e2e8f0',
+                border: '2px dashed rgba(72, 132, 200, 0.3)',
                 borderRadius: '8px',
                 textAlign: 'center',
                 cursor: 'pointer',
@@ -328,7 +328,7 @@ return (
               <label htmlFor="docx-upload" style={{ 
                 display: 'block',
                 padding: '0.875rem 1rem',
-                border: '2px dashed #e2e8f0',
+                border: '2px dashed rgba(72, 132, 200, 0.3)',
                 borderRadius: '8px',
                 textAlign: 'center',
                 cursor: 'pointer',
@@ -351,7 +351,7 @@ return (
               <label htmlFor="ppt-upload" style={{ 
                 display: 'block',
                 padding: '0.875rem 1rem',
-                border: '2px dashed #e2e8f0',
+                border: '2px dashed rgba(72, 132, 200, 0.3)',
                 borderRadius: '8px',
                 textAlign: 'center',
                 cursor: 'pointer',

@@ -359,17 +359,19 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '100%',
-            // maxHeight: '350px',
-            minHeight: '250px',
+            maxWidth: '90%',
+            minWidth: '230px',
+            maxHeight: '90%',
+            minHeight: '515px',
             color: 'white',
             padding: '15px',
             textAlign: 'center',
-            background: 'linear-gradient(-55deg, #0f2027, #203a43, #2c5364)',
-            borderRadius: '8px'
+            background: 'linear-gradient(-55deg, #0f2027, #2a4a6d, #4884c8)',
+            borderRadius: '8px',
+            alignSelf: 'center',
           }}>
             <div style={{ 
-              backgroundColor: '#1de9b6', 
+              backgroundColor: 'rgb(91, 154, 226)', 
               borderRadius: '50%', 
               width: '70px', 
               height: '70px',
@@ -379,11 +381,11 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
               marginBottom: '10px',
               fontSize: '30px'
             }}>
-              AI
+              <img src='/tea-logo.png' style={{width: '40px', height: '60px'}}/>
             </div>
             <h3 style={{ marginBottom: '8px', color:'snow', fontSize: '16px' }}>AI Copilot</h3>
-            <p style={{ marginBottom: '10px', opacity: 0.8, fontSize: '12px', color:'snow' }}>
-              Video avatar is unavailable. <br />
+            <p style={{ marginBottom: '10px', opacity: 0.8, fontSize: '14px', color:'snow' }}>
+              Vega has gone on a tea break. <br />
               Please chat with the copilot for assistance.
             </p>
           </div>
@@ -394,14 +396,14 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
   
   // Very simple avatar UI with video - no frills
   return (
-    <div className="Avatar-component">
+    <div className="Avatar-component" style={{ top: '10px'}}>
       <div className="avatar-container">
         {/* Video container */}
         <div className="avatar-video-container">
           {/* Loading overlay */}
-          <div className={`avatar-loading ${!isInitializing ? 'hidden' : ''}`}>
+          <div className={`avatar-loading ${!isInitializing ? 'hidden' : ''}`} style={{ alignSelf: 'center', minHeight: '515px', borderRadius: '8px', backgroundColor: 'rgba(0, 0, 0, 0.5)', color: 'white' }}>
             <div className="avatar-spinner"></div>
-            <div>Initializing Avatar...</div>
+            <div style={{color: 'snow'}}>Initializing Avatar...</div>
           </div>
 
           {/* Video element */}
@@ -411,7 +413,7 @@ function Avatar({ isActive = false, textToSpeak = '' }) {
             style={{ 
               width: '100%',
               height: '100%',
-              maxHeight: '450px',
+              // maxHeight: '650px',
               objectFit: 'contain',
               borderRadius: '8px',
               backgroundColor: 'transparent',

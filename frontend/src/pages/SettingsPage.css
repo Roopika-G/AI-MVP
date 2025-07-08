@@ -5,6 +5,7 @@
   height: 100vh;
   max-height: fit-content;
   width: 100vw;
+  background: #111827; /* Dark background matching MainLayout */
 }
 
 /* Responsive split container */
@@ -17,23 +18,23 @@
   width: calc(100vw - 205px); /* Sidebar width plus margin for right side */
   gap: 1.5rem;
   padding: 1.5rem;
-  color: black;
+  color: #e2e8f0; /* Light text for dark background */
   justify-content: space-between; /* Equal spacing between panels */
   justify-content: space-between; /* Equal spacing between panels */
 }
 
 .settings-upload-panel {
   flex: 0 0 320px; /* Match sidebar width (160px) + adequate spacing */
-  background: #fff;
+  background: linear-gradient(180deg, #2a4a6d, #3a6491, #4884c8); /* Matching sidebar gradient */
   border-radius: 16px;  
   padding: 1rem 1.5rem 1rem 1.5rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(72, 132, 200, 0.1);
   width: 320px;
   height: fit-content;
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(148, 108, 186, 0.1);
-  color: black;
+  border: 1px solid rgba(72, 132, 200, 0.15);
+  color: #e2e8f0; /* Light text color for dark background */
   margin-left: 10px; /* Add slight margin from left */
   -webkit-animation: swing-in-top-bck 0.6s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
   animation: swing-in-top-bck 0.6s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
@@ -41,7 +42,7 @@
 }
 
 .settings-upload-panel h3 {
-  color: #2d3748;
+  color: #ffffff;
   font-size: 1.3rem; /* Reduced to match top bar font size */
   font-weight: 600;
   gap: 0.5rem;  
@@ -55,10 +56,10 @@
 .settings-upload-panel form > div {
   margin-bottom: 1rem;
   padding: 0.2rem;
-  border: 2px dashed #e2e8f0;
+  border: 2px dashed #4884c8;
   border-radius: 12px;
   transition: all 0.3s ease;
-  background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+  background: linear-gradient(145deg, rgba(42, 74, 109, 0.5), rgba(58, 100, 145, 0.7));
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -130,7 +131,7 @@
   bottom: 0;
   left: 0;
   height: 3px;
-  background: linear-gradient(90deg, #007bff, #0056b3);
+  background: linear-gradient(90deg, #4884c8, #1de9b6);
   animation: progressBar 2s ease-in-out infinite;
 }
 
@@ -202,10 +203,11 @@
 .settings-upload-panel input[type="text"] {
   width: 100%;
   padding: 0.75rem 0.875rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #4884c8;
   border-radius: 8px;
   font-size: 0.95rem; /* Reduced font size */
-  color: #4a5568;
+  color: #fff;
+  background: rgba(42, 74, 109, 0.7); /* Semi-transparent dark blue */
   outline: none;
   transition: all 0.3s ease;
   background: #f8fafc;
@@ -236,7 +238,7 @@
 }
 
 .settings-upload-panel input[type="file"]::file-selector-button {
-  background: linear-gradient(145deg, #1de9b6, #469783);
+  background: linear-gradient(145deg, #4884c8, #3a6491);
   color: white;
   border: none;
   padding: 0.4rem 0.8rem;
@@ -250,14 +252,14 @@
 }
 
 .settings-upload-panel input[type="file"]::file-selector-button:hover {
-  background: linear-gradient(145deg, #1de9b6, #469783);
+  background: linear-gradient(145deg, #4884c8, #1de9b6);
   transform: translateY(-1px);
 }
 
 .settings-upload-panel button {
   width: 100%;
   padding: 0.6rem 1rem;
-  background: linear-gradient(145deg, #1de9b6, #469783);
+  background: linear-gradient(145deg, #4884c8, #3a6491);
   color: white;
   border: none;
   border-radius: 8px;
@@ -271,9 +273,9 @@
 }
 
 .settings-upload-panel button:hover {
-  background: linear-gradient(145deg, #1de9b6, #469783);
+  background: linear-gradient(145deg, #4884c8, #1de9b6);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(148, 108, 186, 0.3);
+  box-shadow: 0 6px 20px rgba(72, 132, 200, 0.3);
 }
 
 .settings-upload-panel button:active {
@@ -303,14 +305,14 @@
 
 .settings-chat-panel {
   flex: 1;
-  background: #fff;
+  background: linear-gradient(180deg, #2a4a6d, #3a6491, #4884c8); /* Matching sidebar gradient */
   border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(72, 132, 200, 0.1);
   display: flex;
   flex-direction: column;
   height: 98%;
-  border: 1px solid rgba(148, 108, 186, 0.1);
+  border: 1px solid rgba(72, 132, 200, 0.15);
   min-width: 0; /* Prevent flex item from expanding beyond container */
   margin-right: 10px; /* Add slight margin from right */
   -webkit-animation: swing-in-top-bck 0.6s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
@@ -325,11 +327,11 @@
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #1de9b6;
+  border-bottom: 2px solid #4884c8;
 }
 
 .chat-header h3 {
-  color: #2d3748;
+  color: #ffffff;
   font-size: 1.3rem; /* Match with other headings */
   font-weight: 600;
   margin: 0;
@@ -359,26 +361,29 @@
   overflow-y: auto;
   margin-bottom: 1rem;
   padding: 1rem;
-  background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+  background: linear-gradient(145deg, #111827, #2a4a6d);
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(72, 132, 200, 0.2);
+  color: #ffffff;
 }
 
 .chat-message.bot {
-  background: linear-gradient(145deg, #f0f4f8, #e2e8f0);
+  background: #2a4a6d;
   border-radius: 12px 12px 12px 4px;
   padding: 1rem 1.25rem;
   margin-bottom: 0.75rem;
   align-self: flex-start;
   max-width: 80%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  border-left: 4px solid #1de9b6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-left: 4px solid #4884c8;
+  border-bottom: 1px solid rgba(29, 233, 182, 0.3);
+  color: #ffffff;
 }
 
 /* Markdown styling within chat messages */
 .chat-message.bot h1, .chat-message.bot h2, .chat-message.bot h3 {
   margin: 0.5rem 0;
-  color: #2d3748;
+  color: #ffffff;
 }
 
 .chat-message.bot h1 { font-size: 1.25rem; }
@@ -402,19 +407,20 @@
 
 .chat-message.bot strong {
   font-weight: 600;
-  color: #2d3748;
+  color: #ffffff;
 }
 
 .chat-message.bot code {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(72, 132, 200, 0.3);
   padding: 0.125rem 0.25rem;
   border-radius: 3px;
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
+  color: #e2e8f0;
 }
 
 .chat-message.bot pre {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(17, 24, 39, 0.7);
   padding: 0.75rem;
   border-radius: 6px;
   overflow-x: auto;
@@ -427,7 +433,7 @@
 }
 
 .chat-message.bot blockquote {
-  border-left: 3px solid #1de9b6;
+  border-left: 3px solid #4884c8;
   padding-left: 1rem;
   margin: 0.5rem 0;
   font-style: italic;
@@ -435,14 +441,15 @@
 }
 
 .chat-message.user {
-  background: linear-gradient(145deg, #c9f0ef, #a9f5f4);
+  background: linear-gradient(145deg, #4884c8, #3a6491);
   border-radius: 12px 12px 4px 12px;
   padding: 1rem 1.25rem;
   margin-bottom: 0.75rem;
   align-self: flex-end;
   max-width: 80%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  border-right: 4px solid #19f2ef;
+  box-shadow: 0 2px 8px rgba(72, 132, 200, 0.1);
+  border-right: 4px solid #1de9b6;
+  color: white;
 }
 
 .chat-message.loading {
@@ -495,33 +502,33 @@
   display: flex;
   gap: 0.75rem;
   padding: 1rem;
-  background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+  background: linear-gradient(145deg, #111827, #2a4a6d);
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(72, 132, 200, 0.3);
 }
 
 .chat-input-form input {
   flex: 1;
   padding: 0.875rem 1rem;
   border-radius: 8px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #4884c8;
   font-size: 0.95rem;
   transition: all 0.3s ease;
-  background: #fff;
-  color: black;
+  background: #3a6491;
+  color: #ffffff;
 }
 
 .chat-input-form input:focus {
   outline: none;
   border-color: #1de9b6;
-  box-shadow: 0 0 0 3px rgba(148, 108, 186, 0.1);
+  box-shadow: 0 0 0 3px rgba(72, 132, 200, 0.1);
 }
 
 .chat-input-form button {
   padding: 0.875rem 1.5rem;
   border-radius: 8px;
   border: none;
-  background: linear-gradient(145deg, #1de9b6, #469783);
+  background: linear-gradient(145deg, #4884c8, #3a6491);
   color: #fff;
   font-weight: 600;
   cursor: pointer;
@@ -766,12 +773,12 @@
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-  background: #23caa0;
+  background: #4884c8;
   border-radius: 3px;
 }
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
-  background: #419782;
+  background: #1de9b6;
   transition: 0.3s;
 }
 
